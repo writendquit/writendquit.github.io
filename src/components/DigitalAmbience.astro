@@ -157,35 +157,39 @@
 <!-- Neo's Screen - Exact Movie Recreation -->
 <div id="matrix-container" class="fixed inset-0 z-[9999] pointer-events-none opacity-0">
   
-  <!-- Phase 1: 1999 Browser Search -->
-  <div id="browser-phase" class="absolute inset-0 bg-[#1a1a2e] flex items-center justify-center">
-    <div class="browser-window">
+  <!-- Phase 1: 1999 Browser Search - FULLSCREEN -->
+  <div id="browser-phase" class="absolute inset-0 bg-[#2a3a2a]">
+    <div class="browser-window-full">
       <!-- Browser Toolbar -->
       <div class="browser-toolbar">
         <div class="toolbar-icons">
-          <span class="toolbar-btn">▤</span>
-          <span class="toolbar-btn">⊞</span>
-          <span class="toolbar-btn">⊟</span>
-          <span class="toolbar-btn">◧</span>
-          <span class="toolbar-btn">▨</span>
-          <span class="toolbar-btn">◨</span>
-          <span class="toolbar-btn">▥</span>
+          <div class="toolbar-btn">☰</div>
+          <div class="toolbar-btn">⊞</div>
+          <div class="toolbar-btn">▦</div>
+          <div class="toolbar-btn">◫</div>
+          <div class="toolbar-btn">▤</div>
+          <div class="toolbar-btn">◨</div>
+          <div class="toolbar-btn">▥</div>
         </div>
-        <div class="download-btn">Download</div>
+        <div class="toolbar-right">
+          <div class="download-btn">Download</div>
+        </div>
       </div>
       
       <!-- Search Progress Bar -->
-      <div class="search-bar">
-        <span class="search-text">Searching...</span>
+      <div class="search-bar-container">
+        <div class="search-bar">
+          <span class="search-text">Searching...</span>
+        </div>
       </div>
       
-      <!-- Content Area -->
-      <div class="browser-content">
-        <div class="article-area" id="article-area">
+      <!-- Content Area - Newspaper + Morpheus Photo -->
+      <div class="browser-content-full">
+        <div class="newspaper-area" id="article-area">
           <!-- Articles will cycle here -->
         </div>
-        <div class="morpheus-image">
-          <div class="morpheus-silhouette"></div>
+        <div class="morpheus-photo-area">
+          <img src="/morpheus.jpg" alt="" class="morpheus-photo" />
         </div>
       </div>
     </div>
@@ -599,152 +603,177 @@
     }
   }
   
-  /* ===== NEO'S SCREEN - MOVIE STYLE ===== */
+  /* ===== NEO'S SCREEN - CINEMATIC MOVIE STYLE ===== */
   #matrix-container.active {
     opacity: 1;
     pointer-events: auto;
   }
   
-  /* 1999 Browser Window */
-  .browser-window {
-    width: 90%;
-    max-width: 900px;
-    height: 80%;
-    max-height: 600px;
+  /* 1999 Browser - FULLSCREEN */
+  .browser-window-full {
+    width: 100%;
+    height: 100%;
     background: #c0c0c0;
-    border: 3px outset #fff;
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
   }
   
   .browser-toolbar {
-    background: linear-gradient(180deg, #d4d4d4 0%, #a0a0a0 100%);
-    padding: 4px 8px;
+    background: linear-gradient(180deg, #d8d8d8 0%, #b0b0b0 100%);
+    padding: 3px 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px inset #888;
+    border-bottom: 1px solid #808080;
+    height: 36px;
   }
   
   .toolbar-icons {
     display: flex;
-    gap: 2px;
+    gap: 1px;
   }
   
   .toolbar-btn {
-    width: 28px;
-    height: 26px;
-    background: #c0c0c0;
-    border: 2px outset #fff;
+    width: 32px;
+    height: 28px;
+    background: linear-gradient(180deg, #e8e8e8 0%, #c8c8c8 100%);
+    border: 1px solid #a0a0a0;
+    border-top-color: #fff;
+    border-left-color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .toolbar-right {
+    display: flex;
+    align-items: center;
   }
   
   .download-btn {
-    background: #c0c0c0;
-    border: 2px outset #fff;
-    padding: 4px 12px;
-    font-family: 'MS Sans Serif', Arial, sans-serif;
+    background: linear-gradient(180deg, #e8e8e8 0%, #c8c8c8 100%);
+    border: 1px solid #a0a0a0;
+    border-top-color: #fff;
+    border-left-color: #fff;
+    padding: 4px 16px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: 12px;
     color: #000;
   }
   
+  .search-bar-container {
+    padding: 6px 10px;
+    background: #c0c0c0;
+  }
+  
   .search-bar {
-    background: #006400;
-    padding: 6px 12px;
-    margin: 8px;
+    background: #006600;
+    padding: 8px 16px;
     border: 2px inset #004400;
+    display: inline-block;
   }
   
   .search-text {
     color: #00ff00;
-    font-family: 'MS Sans Serif', Arial, sans-serif;
-    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 15px;
     font-weight: bold;
-    animation: searching-blink 1s infinite;
+    letter-spacing: 1px;
   }
   
-  @keyframes searching-blink {
-    0%, 70% { opacity: 1; }
-    71%, 100% { opacity: 0.7; }
-  }
-  
-  .browser-content {
+  /* Main content area - Newspaper style */
+  .browser-content-full {
     flex: 1;
-    background: #f5f5dc;
-    margin: 0 8px 8px 8px;
-    border: 2px inset #888;
     display: flex;
+    background: #e8e4d4;
+    margin: 0;
     overflow: hidden;
   }
   
-  .article-area {
+  .newspaper-area {
     flex: 1;
-    padding: 15px;
+    padding: 20px 25px;
     overflow: hidden;
-    font-family: 'Times New Roman', Georgia, serif;
-    font-size: 13px;
-    line-height: 1.4;
-    color: #000;
+    font-family: 'Times New Roman', 'Georgia', serif;
+    color: #1a1a1a;
+    background: #f0ece0;
+    border-right: 1px solid #ccc;
   }
   
-  .article-headline {
-    font-size: 28px;
-    font-weight: bold;
-    font-family: 'Times New Roman', serif;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #000;
-    padding-bottom: 5px;
-  }
-  
+  /* Newspaper headline styles */
   .article-lang {
-    font-size: 36px;
+    font-size: 48px;
     font-weight: bold;
     text-align: center;
-    margin: 10px 0;
-    font-family: serif;
+    margin: 5px 0 8px 0;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 8px;
   }
   
   .article-subtitle {
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     font-style: italic;
+    color: #333;
+  }
+  
+  .article-headline {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Times New Roman', serif;
+    margin: 15px 0 12px 0;
+    line-height: 1.1;
   }
   
   .article-text {
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 1.5;
     text-align: justify;
-    column-count: 2;
-    column-gap: 20px;
+    column-count: 3;
+    column-gap: 25px;
+    column-rule: 1px solid #ccc;
   }
   
   .article-text p {
-    margin-bottom: 8px;
-    text-indent: 1em;
+    margin-bottom: 10px;
+    text-indent: 1.5em;
   }
   
-  .morpheus-image {
-    width: 200px;
-    background: #111;
+  .article-text p:first-child {
+    text-indent: 0;
+  }
+  
+  .article-text p:first-child::first-letter {
+    font-size: 3em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  
+  /* Morpheus photo area */
+  .morpheus-photo-area {
+    width: 280px;
+    min-width: 280px;
+    background: #0a0a0a;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: 1px solid #888;
+    padding: 20px;
   }
   
-  .morpheus-silhouette {
-    width: 150px;
-    height: 180px;
-    background: radial-gradient(ellipse at 50% 30%, #222 0%, #000 50%, #000 100%);
-    border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%;
-    position: relative;
-    opacity: 0.8;
+  .morpheus-photo {
+    width: 100%;
+    height: auto;
+    max-height: 90%;
+    object-fit: contain;
+    filter: grayscale(100%) contrast(1.2) brightness(0.9);
+    opacity: 0.85;
   }
   
   /* Phase 2: Terminal Messages */
@@ -752,7 +781,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    padding: 80px 100px;
+    padding: 12% 8%;
   }
   
   #terminal-phase.hidden {
@@ -761,27 +790,39 @@
   
   .neo-message {
     font-family: 'Courier New', 'Lucida Console', monospace;
-    font-size: 24px;
+    font-size: 28px;
     color: #00ff41;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px #00ff41;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #00ff41, 0 0 20px #00aa30;
     white-space: pre-wrap;
-    line-height: 2;
+    line-height: 2.2;
   }
   
-  @media (max-width: 768px) {
-    .browser-window {
-      width: 95%;
-      height: 85%;
+  @media (max-width: 900px) {
+    .morpheus-photo-area {
+      width: 200px;
+      min-width: 200px;
     }
-    .morpheus-image {
-      width: 120px;
+    .article-text {
+      column-count: 2;
+    }
+    .article-lang {
+      font-size: 36px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .morpheus-photo-area {
+      display: none;
+    }
+    .article-text {
+      column-count: 1;
     }
     #terminal-phase {
-      padding: 40px 30px;
+      padding: 8% 5%;
     }
     .neo-message {
-      font-size: 18px;
+      font-size: 20px;
     }
   }
   
@@ -1002,7 +1043,7 @@ One local policeman was also present at Heathrow Airport for comments. "I have b
       screenTimeout = window.setTimeout(typeMessage, 1000)
     }
     
-    // Type message character by character
+    // Type message character by character - ONE message at a time, cinematic style
     const typeMessage = () => {
       if (!matrixActive || !neoMessage) return
       
@@ -1010,20 +1051,25 @@ One local policeman was also present at Heathrow Airport for comments. "I have b
         const msg = neoMessages[messageIndex]
         
         if (charIndex < msg.length) {
+          // Type one character
           neoMessage.textContent += msg[charIndex]
           charIndex++
           // Slow typing like in movie
-          screenTimeout = window.setTimeout(typeMessage, 120 + Math.random() * 60)
+          screenTimeout = window.setTimeout(typeMessage, 100 + Math.random() * 50)
         } else {
-          // Message complete
+          // Message complete - wait, then clear and show next
           messageIndex++
           charIndex = 0
           
           if (messageIndex < neoMessages.length) {
-            neoMessage.textContent += '\n\n'
-            // Long pause between messages
-            screenTimeout = window.setTimeout(typeMessage, 3000)
+            // Wait 3 seconds, then clear screen and type next message
+            screenTimeout = window.setTimeout(() => {
+              if (!matrixActive) return
+              neoMessage.textContent = '' // Clear the screen
+              screenTimeout = window.setTimeout(typeMessage, 800) // Brief pause before next message
+            }, 3000)
           }
+          // If last message, just leave it on screen
         }
       }
     }
