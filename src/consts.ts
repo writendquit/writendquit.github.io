@@ -4,7 +4,7 @@ export const SITE: Site = {
   title: 'ZeroDay',
   description:
     'Security researcher, bug bounty hunter, and CTF player. Building the future of cybersecurity.',
-  href: 'https://aerlynvorynx.github.io',
+  href: 'https://colonwq.me',
   author: 'ZeroDay',
   locale: 'en-US',
   featuredPostCount: 3,
@@ -32,19 +32,19 @@ export const NAV_LINKS: SocialLink[] = [
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: 'https://github.com/aerlynvorynx',
+    href: 'https://github.com/writendquit',
     label: 'GitHub',
   },
   {
-    href: 'https://twitter.com/aerlynvorynx',
+    href: 'https://twitter.com/writendquit',
     label: 'Twitter',
   },
   {
-    href: 'https://discord.gg/aerlynvorynx',
-    label: 'Discord',
+    href: 'https://ctftime.org/team/writendquit',
+    label: 'CTFtime',
   },
   {
-    href: 'mailto:contact@aerlynvorynx.dev',
+    href: 'mailto:contact@colonwq.me',
     label: 'Email',
   },
   {
