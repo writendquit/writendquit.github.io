@@ -1,85 +1,580 @@
 ---
-import BlogCard from '@/components/BlogCard.astro'
 import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
-import { buttonVariants } from '@/components/ui/button'
-import { SITE } from '@/consts'
 import Layout from '@/layouts/Layout.astro'
 import { getRecentPosts } from '@/lib/data-utils'
+import { Icon } from 'astro-icon/components'
+import GitHubContributions from '@/components/GitHubContributions'
 
-const blog = await getRecentPosts(SITE.featuredPostCount)
+const blog = await getRecentPosts(4)
+
+// Change this to your actual GitHub username
+const GITHUB_USERNAME = 'AerlynVorynx'
 ---
 
-<Layout class="max-w-3xl">
+<Layout class="!max-w-none !px-0" hideFooter>
   <PageHead slot="head" title="Home" />
-  <section class="rounded-lg border">
-    <div class="flex flex-col space-y-1.5 p-6">
-      <h3 class="text-3xl leading-none font-medium">er·u·dite</h3>
-      <p class="text-muted-foreground text-sm">
-        /ˈer(y)əˌdīt/ &bull; <span class="font-medium">adjective</span>
-      </p>
+  
+  <style>
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 6px 2px rgba(249, 115, 22, 0.5); }
+    }
+    @keyframes scroll-logos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes shine {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    .orange-dot { animation: pulse-glow 2s ease-in-out infinite; }
+    .logo-scroll { animation: scroll-logos 20s linear infinite; }
+    .logo-scroll:hover { animation-play-state: paused; }
+    .shiny-text {
+      background: linear-gradient(90deg, 
+        rgba(148, 163, 184, 0.3) 0%, 
+        rgba(248, 250, 252, 0.9) 25%, 
+        rgba(148, 163, 184, 0.3) 50%, 
+        rgba(248, 250, 252, 0.9) 75%, 
+        rgba(148, 163, 184, 0.3) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+    }
+    .shiny-text:hover {
+      background: linear-gradient(90deg, 
+        rgba(249, 115, 22, 0.5) 0%, 
+        rgba(251, 191, 36, 1) 50%, 
+        rgba(249, 115, 22, 0.5) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: shine 2s linear infinite;
+    }
+  </style>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 pt-12 lg:pt-20 pb-8">
+      
+      <!-- LEFT: Content -->
+      <div class="max-w-lg">
+        <!-- VISION label -->
+        <div class="flex items-center gap-2 mb-6">
+          <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+          <span class="text-[11px] font-medium tracking-[0.2em] uppercase">Vision</span>
+        </div>
+        
+        <!-- Main headline -->
+        <h1 class="text-[2.5rem] sm:text-[3rem] lg:text-[3.5rem] font-bold leading-[1.08] tracking-[-0.02em] mb-6">
+          Security-Native<br/>
+          <span class="text-foreground">Research & CTF</span>
+        </h1>
+        
+        <!-- Subheadline -->
+        <p class="text-muted-foreground text-[15px] leading-relaxed mb-2">
+          The only security research<br class="hidden sm:inline"/>
+          that works everywhere you do.
+        </p>
+        
+        <!-- Description -->
+        <p class="text-muted-foreground text-[15px] leading-relaxed mb-8">
+          From Web to Binary — delegate complete tasks like<br class="hidden sm:inline"/>
+          exploitation, incident response, and analysis<br class="hidden sm:inline"/>
+          without changing your tools, models, or workflow.
+        </p>
+        
+        <!-- OS Tabs -->
+        <div class="flex gap-2 mb-3">
+          <button class="px-3 py-1.5 text-[11px] font-medium tracking-wider border border-foreground bg-foreground text-background rounded">
+            MACOS / LINUX
+          </button>
+          <button class="px-3 py-1.5 text-[11px] font-medium tracking-wider border border-border text-muted-foreground rounded hover:border-foreground hover:text-foreground transition-colors">
+            WINDOWS
+          </button>
+        </div>
+        
+        <!-- Command box -->
+        <div class="flex items-center border border-border rounded-md overflow-hidden max-w-[420px]">
+          <div class="flex-1 flex items-center gap-2 px-4 py-3 font-mono text-sm">
+            <span class="text-muted-foreground">&gt;</span>
+            <span class="text-foreground">curl -fsSL https://zdrx7.dev/cli | sh</span>
+          </div>
+          <button 
+            class="px-3 py-3 border-l border-border hover:bg-muted transition-colors"
+            onclick="navigator.clipboard.writeText('curl -fsSL https://zdrx7.dev/cli | sh')"
+            title="Copy"
+          >
+            <Icon name="lucide:copy" class="w-4 h-4 text-muted-foreground" />
+          </button>
+        </div>
+      </div>
+      
+      <!-- RIGHT: Animated Diagram -->
+      <div class="relative hidden lg:block h-[400px]">
+        <!-- SVG Lines and dots -->
+        <svg class="absolute inset-0 w-full h-full" viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Main horizontal line top -->
+          <line x1="60" y1="95" x2="200" y2="95" stroke="currentColor" stroke-width="1" class="text-border"/>
+          <!-- Dots on top line -->
+          <circle cx="100" cy="95" r="4" class="fill-foreground"/>
+          <circle cx="140" cy="95" r="3" class="fill-muted-foreground"/>
+          
+          <!-- Vertical line down from 200 -->
+          <line x1="200" y1="95" x2="200" y2="220" stroke="currentColor" stroke-width="1" class="text-border"/>
+          
+          <!-- Top right horizontal -->
+          <line x1="300" y1="95" x2="450" y2="95" stroke="currentColor" stroke-width="1" class="text-border"/>
+          <!-- Corner box indicator -->
+          <rect x="445" y="88" width="14" height="14" stroke="currentColor" stroke-width="1" fill="none" class="text-border"/>
+          <circle cx="452" cy="95" r="2" class="fill-muted-foreground"/>
+          
+          <!-- Right vertical line -->
+          <line x1="400" y1="95" x2="400" y2="160" stroke="currentColor" stroke-width="1" class="text-border"/>
+          
+          <!-- Middle horizontal with orange dot and progress -->
+          <line x1="330" y1="160" x2="480" y2="160" stroke="currentColor" stroke-width="1" class="text-border"/>
+          <circle cx="370" cy="160" r="4" class="fill-orange-500 orange-dot"/>
+          <!-- Progress bar -->
+          <rect x="385" y="157" width="60" height="6" rx="3" class="fill-muted"/>
+          <rect x="385" y="157" width="45" height="6" rx="3" class="fill-orange-500"/>
+          
+          <!-- Bottom connector -->
+          <line x1="200" y1="220" x2="280" y2="220" stroke="currentColor" stroke-width="1" class="text-border"/>
+          <circle cx="240" cy="220" r="3" class="fill-muted-foreground"/>
+          
+          <!-- Animated traveling dot -->
+          <circle r="4" class="fill-orange-500">
+            <animateMotion dur="5s" repeatCount="indefinite" path="M60,95 L200,95 L200,220 L280,220 L280,160 L400,160 L400,95 L300,95"/>
+          </circle>
+        </svg>
+        
+        <!-- Center diamond with image -->
+        <div class="absolute top-[42%] left-[38%] -translate-x-1/2 -translate-y-1/2">
+          <div class="w-[72px] h-[72px] rotate-45 border border-border bg-background flex items-center justify-center">
+            <div class="-rotate-45">
+              <img 
+                src="/static/zdrx7.jpeg" 
+                alt="ZDRX-7"
+                class="w-9 h-9 rounded object-cover grayscale"
+              />
+            </div>
+          </div>
+        </div>
+        
+        <!-- Code snippet box (bottom right) -->
+        <div class="absolute bottom-[8%] right-[2%] w-[200px] border border-border rounded-lg bg-background shadow-sm overflow-hidden">
+          <div class="flex items-center justify-between px-3 py-2 border-b border-border bg-muted/30">
+            <div class="flex gap-1">
+              <div class="w-2 h-2 rounded-full bg-muted-foreground/30"></div>
+              <div class="w-2 h-2 rounded-full bg-muted-foreground/30"></div>
+              <div class="w-2 h-2 rounded-full bg-muted-foreground/30"></div>
+            </div>
+            <span class="text-[9px] text-muted-foreground font-mono">status.log</span>
+          </div>
+          <div class="px-3 py-2">
+            <pre class="text-[9px] font-mono text-muted-foreground leading-relaxed"><code>ZDRX-7@strict9:~$ <span class="text-foreground">whoami</span>
+  alias: AerlynVorynx
+  role: Security Researcher
+  rank: <span class="text-orange-500">#42</span>
+  status: <span class="text-green-500">active</span></code></pre>
+          </div>
+        </div>
+        
+        <!-- Small decorative dots -->
+        <div class="absolute top-[25%] right-[20%] w-2 h-2 rounded-full bg-muted-foreground/20"></div>
+        <div class="absolute top-[55%] left-[22%] w-1.5 h-1.5 rounded-full bg-muted-foreground/15"></div>
+      </div>
     </div>
-    <div class="p-6 pt-0">
-      <p class="text-muted-foreground mb-2 text-sm">
-        astro-erudite is an opinionated, unstyled static blogging template built
-        with <Link
-          href="https://astro.build"
-          class="text-foreground"
-          external
-          underline>Astro</Link
-        >, <Link
-          href="https://tailwindcss.com"
-          class="text-foreground"
-          external
-          underline>Tailwind</Link
-        >, and <Link
-          href="https://ui.shadcn.com"
-          class="text-foreground"
-          external
-          underline>shadcn/ui</Link
-        >. Extraordinarily loosely based on the <Link
-          href="https://astro-micro.vercel.app/"
-          class="text-foreground"
-          external
-          underline>Astro Micro</Link
-        > theme.
-      </p>
-      <p class="text-muted-foreground text-sm">
-        To use this template, check out the <Link
-          href="https://github.com/jktrn/astro-erudite"
-          class="text-foreground"
-          underline
-          external>GitHub</Link
-        > repository. To learn more about why this template exists, read this blog
-        post: <Link
-          href="/blog/the-state-of-static-blogs"
-          class="text-foreground"
-          underline>The State of Static Blogs in 2024</Link
-        >.
-      </p>
+    
+    <!-- TRUSTED BY section -->
+    <div class="py-8 border-t border-border">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+        <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground">Trusted by teams at</span>
+      </div>
+      
+      <!-- Scrolling logos - enterprise style with logo + name -->
+      <div class="relative overflow-hidden py-8">
+        <div class="flex items-center gap-14 logo-scroll" style="width: max-content;">
+          <!-- Airwallex -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Airwallex</span>
+          </div>
+          <!-- Groq -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-bold tracking-tight">Groq</span>
+          </div>
+          <!-- Factory.ai -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="8" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M7 8V6a2 2 0 012-2h6a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="12" x2="12" y2="16" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Factory</span>
+          </div>
+          <!-- McLaren -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M5 17h14M7 13l3-6h4l3 6M9 13h6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="text-xl font-bold tracking-tight">McLaren</span>
+          </div>
+          <!-- Anthropic -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 9v12h16V9l-8-6z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-medium tracking-tight">Anthropic</span>
+          </div>
+          <!-- Cyera -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Cyera</span>
+          </div>
+          <!-- Zoom -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="6" width="15" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M17 9l5-2v10l-5-2V9z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <span class="text-xl font-bold tracking-tight">Zoom</span>
+          </div>
+          <!-- Akamai -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Akamai</span>
+          </div>
+          <!-- Riot Games -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h12l-2 16H8L6 4z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 9h6M10 13h4" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-bold tracking-wide uppercase">Riot Games</span>
+          </div>
+          <!-- Z.ai -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16l-12 16h12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="text-xl font-bold tracking-tight">Z.ai</span>
+          </div>
+          <!-- Duplicate for seamless scroll -->
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Airwallex</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-bold tracking-tight">Groq</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="8" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M7 8V6a2 2 0 012-2h6a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.5"/><line x1="12" y1="12" x2="12" y2="16" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Factory</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M5 17h14M7 13l3-6h4l3 6M9 13h6" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="text-xl font-bold tracking-tight">McLaren</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 9v12h16V9l-8-6z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-medium tracking-tight">Anthropic</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Cyera</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="6" width="15" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M17 9l5-2v10l-5-2V9z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+            <span class="text-xl font-bold tracking-tight">Zoom</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-semibold tracking-tight">Akamai</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h12l-2 16H8L6 4z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M9 9h6M10 13h4" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span class="text-xl font-bold tracking-wide uppercase">Riot Games</span>
+          </div>
+          <div class="flex items-center gap-3 opacity-50 hover:opacity-100 transition-opacity">
+            <svg class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16l-12 16h12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="text-xl font-bold tracking-tight">Z.ai</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
-  <section class="flex flex-col gap-y-4">
-    <h2 class="text-2xl font-medium">Latest posts</h2>
-    <ul class="flex flex-col gap-y-4">
-      {
-        blog.map((post) => (
-          <li>
-            <BlogCard entry={post} />
-          </li>
-        ))
-      }
-    </ul>
-    <div class="flex justify-center">
-      <Link
-        href="/blog"
-        class={buttonVariants({ variant: 'ghost' }) + ' group'}
-      >
-        See all posts <span
-          class="ml-1.5 transition-transform group-hover:translate-x-1"
-          >&rarr;</span
-        >
+
+  <!-- ===== PRODUCT SECTION ===== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border">
+    <div class="flex items-center gap-2 mb-6">
+      <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+      <span class="text-[11px] font-medium tracking-[0.2em] uppercase">Product</span>
+    </div>
+    
+    <h2 class="text-[2.5rem] sm:text-[3rem] font-bold leading-[1.1] tracking-[-0.02em] mb-4">
+      Skills meet you<br/>
+      <span class="text-muted-foreground">wherever you work.</span>
+    </h2>
+    
+    <p class="text-muted-foreground text-[15px] leading-relaxed mb-12 max-w-xl">
+      Security research embedded directly into your workflow.<br/>
+      IDE, Web, CLI, Slack, Linear. Delegate tasks<br/>
+      as they come to mind, wherever you are.
+    </p>
+    
+    <!-- Product tabs -->
+    <div class="flex flex-wrap gap-4 mb-12">
+      <button class="text-sm font-medium text-foreground border-b-2 border-foreground pb-1">01 Terminal / IDE</button>
+      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">02 Web Browser</button>
+      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">03 Command Line</button>
+      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">04 Slack / Teams</button>
+      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">05 Project Manager</button>
+    </div>
+    
+    <!-- GitHub Contributions - Full Width -->
+    <div class="mb-16">
+      <GitHubContributions client:load username={GITHUB_USERNAME} />
+    </div>
+    
+    <!-- Product content grid -->
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <!-- Left: Description card -->
+      <div class="border border-border rounded-2xl p-8">
+        <div class="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-4">01 — Terminal / IDE</div>
+        
+        <div class="flex gap-2 mb-4">
+          <button class="px-3 py-1.5 text-[11px] font-medium tracking-wider border border-foreground bg-foreground text-background rounded">
+            MACOS / LINUX
+          </button>
+          <button class="px-3 py-1.5 text-[11px] font-medium tracking-wider border border-border text-muted-foreground rounded">
+            WINDOWS
+          </button>
+        </div>
+        
+        <div class="flex items-center border border-border rounded-md overflow-hidden mb-6">
+          <div class="flex-1 flex items-center gap-2 px-4 py-3 font-mono text-sm">
+            <span class="text-muted-foreground">&gt;</span>
+            <span class="text-foreground">curl -fsSL https://zdrx7.dev/cli | sh</span>
+          </div>
+          <button class="px-3 py-3 border-l border-border hover:bg-muted transition-colors">
+            <Icon name="lucide:copy" class="w-4 h-4 text-muted-foreground" />
+          </button>
+        </div>
+        
+        <Link href="/about" class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all">
+          Quickstart Guide
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </Link>
+        
+        <h3 class="text-2xl font-bold mt-8 mb-4">Research where you code</h3>
+        
+        <p class="text-muted-foreground text-[15px] leading-relaxed mb-6">
+          ZDRX-7 meets you in your editor without forcing a switch. 
+          Delegate tasks in any IDE or terminal: VS Code, JetBrains, Vim, and more. 
+          All while maintaining your workflow, tools, and shortcuts.
+        </p>
+        
+        <Link href="/about" class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all">
+          Learn more
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </Link>
+      </div>
+      
+      <!-- Right: Stats Card -->
+      <div class="border border-border rounded-2xl p-8 bg-muted/5">
+        <div class="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-6">02 — Activity Stats</div>
+        
+        <div class="grid grid-cols-2 gap-6 mb-8">
+          <div>
+            <p class="text-4xl font-bold text-foreground">89</p>
+            <p class="text-sm text-muted-foreground">Vulnerabilities Found</p>
+          </div>
+          <div>
+            <p class="text-4xl font-bold text-foreground">42</p>
+            <p class="text-sm text-muted-foreground">CTFs Completed</p>
+          </div>
+          <div>
+            <p class="text-4xl font-bold text-foreground">#42</p>
+            <p class="text-sm text-muted-foreground">CTFtime Rank</p>
+          </div>
+          <div>
+            <p class="text-4xl font-bold text-foreground">127</p>
+            <p class="text-sm text-muted-foreground">Contributions</p>
+          </div>
+        </div>
+        
+        <h3 class="text-2xl font-bold mb-4">Consistent Activity</h3>
+        
+        <p class="text-muted-foreground text-[15px] leading-relaxed mb-6">
+          Track my real-time coding activity and contribution history. 
+          Every push, every commit, displayed live from GitHub.
+        </p>
+        
+        <Link href={`https://github.com/${GITHUB_USERNAME}`} external class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all">
+          View GitHub Profile
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ENTERPRISE SECTION (DARK) ===== -->
+  <section class="bg-[#0a0a0a] text-white py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+        <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-white/50">Enterprise</span>
+      </div>
+      
+      <p class="text-white/60 text-[15px] leading-relaxed mb-16 max-w-md">
+        ZDRX-7 is designed to meet the demands of modern security teams — 
+        secure, scalable, and ready to integrate with your existing security tools.
+      </p>
+      
+      <!-- Big headline -->
+      <h2 class="text-[2.5rem] sm:text-[3rem] lg:text-[3.5rem] font-bold leading-[1.08] tracking-[-0.02em] mb-20">
+        Security that works with<br/>
+        <span class="text-white/30">you, not replace you</span>
+      </h2>
+      
+      <!-- Two column info -->
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
+        <div>
+          <div class="text-[11px] font-medium tracking-[0.15em] uppercase text-white/30 mb-4">Secure at every level</div>
+          <h3 class="text-xl font-bold mb-4">Industry-grade security and compliance</h3>
+          <p class="text-white/50 text-[15px] leading-relaxed mb-6">
+            Uses state-of-the-art security protocols to protect your data and IP from misuse.
+          </p>
+          <Link href="/about" class="inline-flex items-center gap-2 text-[13px] text-white/50 hover:text-white transition-colors tracking-wider uppercase">
+            Learn more about security
+            <Icon name="lucide:arrow-right" class="w-3 h-3" />
+          </Link>
+        </div>
+        
+        <div>
+          <div class="text-[11px] font-medium tracking-[0.15em] uppercase text-white/30 mb-4">Across your stack</div>
+          <h3 class="text-xl font-bold mb-4">Interface and vendor agnostic</h3>
+          <p class="text-white/50 text-[15px] leading-relaxed mb-6">
+            Flexible and extensible, working with any model provider, any tooling, and on any interface.
+          </p>
+          <Link href="/about" class="inline-flex items-center gap-2 text-[13px] text-white/50 hover:text-white transition-colors tracking-wider uppercase">
+            Learn more about enterprise
+            <Icon name="lucide:arrow-right" class="w-3 h-3" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWS SECTION ===== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+      <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground">News</span>
+    </div>
+    
+    <div class="flex items-center justify-between mb-12">
+      <h2 class="text-[2rem] sm:text-[2.5rem] font-bold">News & updates</h2>
+      <Link href="/blog" class="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        More News
+        <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </Link>
     </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+      {blog.map((post, i) => (
+        <article class="group">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-[11px] px-2 py-0.5 border border-border rounded font-medium tracking-wider uppercase">Writeup</span>
+            {i === 0 && <span class="text-[11px] px-2 py-0.5 bg-orange-500 text-white rounded font-medium">NEW</span>}
+          </div>
+          
+          <h3 class="text-xl font-bold mb-3 group-hover:text-muted-foreground transition-colors">
+            <Link href={`/blog/${post.id}`}>{post.data.title}</Link>
+          </h3>
+          
+          <p class="text-muted-foreground text-[15px] leading-relaxed line-clamp-3 mb-4">
+            {post.data.description}
+          </p>
+          
+          <Link href={`/blog/${post.id}`} class="inline-flex items-center gap-2 text-sm font-medium group-hover:gap-3 transition-all">
+            Learn more
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </Link>
+        </article>
+      ))}
+    </div>
   </section>
+
+  <!-- ===== CTA SECTION ===== -->
+  <section class="bg-foreground text-background">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+        <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-background/50">Build with us</span>
+      </div>
+      
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+        <h2 class="text-[2rem] sm:text-[2.5rem] font-bold leading-tight">
+          Ready to build the<br/>security of the future?
+        </h2>
+        
+        <Link href="mailto:contact@zdrx7.dev" class="inline-flex items-center gap-2 px-6 py-3 bg-background text-foreground text-sm font-medium rounded hover:opacity-90 transition-opacity">
+          Start building
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-muted/20 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center gap-2 mb-10">
+        <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
+        <span class="text-[11px] font-medium tracking-[0.2em] uppercase text-muted-foreground">Footer</span>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 mb-12">
+        <!-- Logo -->
+        <div>
+          <div class="w-8 h-8 rounded overflow-hidden">
+            <img src="/static/zdrx7.jpeg" alt="ZDRX-7" class="w-full h-full object-cover grayscale" />
+          </div>
+        </div>
+        
+        <!-- Resources -->
+        <div>
+          <h4 class="text-sm font-medium mb-4">Resources</h4>
+          <ul class="space-y-3 text-sm text-muted-foreground">
+            <li><Link href="/blog" class="hover:text-foreground transition-colors">Blog</Link></li>
+            <li><Link href="/ctfs" class="hover:text-foreground transition-colors">CTFs</Link></li>
+            <li><Link href="/about" class="hover:text-foreground transition-colors">Contact</Link></li>
+            <li><Link href="https://github.com/aerlynvorynx" external class="hover:text-foreground transition-colors">Open Source</Link></li>
+          </ul>
+        </div>
+        
+        <!-- Company -->
+        <div>
+          <h4 class="text-sm font-medium mb-4">Links</h4>
+          <ul class="space-y-3 text-sm text-muted-foreground">
+            <li><Link href="https://ctftime.org" external class="hover:text-foreground transition-colors">CTFtime</Link></li>
+            <li><Link href="https://hackerone.com" external class="hover:text-foreground transition-colors">HackerOne</Link></li>
+            <li><Link href="https://bugcrowd.com" external class="hover:text-foreground transition-colors">Bugcrowd</Link></li>
+          </ul>
+        </div>
+        
+        <!-- Legal -->
+        <div>
+          <h4 class="text-sm font-medium mb-4">Legal</h4>
+          <ul class="space-y-3 text-sm text-muted-foreground">
+            <li><Link href="/about" class="hover:text-foreground transition-colors">Privacy Policy</Link></li>
+            <li><Link href="/about" class="hover:text-foreground transition-colors">Terms of Service</Link></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Bottom -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-8 border-t border-border">
+        <div class="flex items-center gap-6 text-sm text-muted-foreground">
+          <Link href="https://twitter.com" external class="hover:text-foreground transition-colors">X (Twitter)</Link>
+          <Link href="https://linkedin.com" external class="hover:text-foreground transition-colors">LinkedIn</Link>
+          <Link href="https://github.com" external class="hover:text-foreground transition-colors">GitHub</Link>
+        </div>
+        <p class="text-sm text-muted-foreground">© ZDRX-7 2025. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 </Layout>

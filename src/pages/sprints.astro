@@ -1,0 +1,165 @@
+---
+import PageHead from '@/components/PageHead.astro'
+import Layout from '@/layouts/Layout.astro'
+import { Icon } from 'astro-icon/components'
+import SprintCalendar from '@/components/SprintCalendar'
+---
+
+<Layout class="max-w-6xl">
+  <PageHead slot="head" title="Sprints" />
+  
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold tracking-tight">Sprints</h1>
+    <p class="text-muted-foreground">Track daily progress and tasks</p>
+  </div>
+
+  <div class="grid gap-8 lg:grid-cols-[1fr,380px]">
+    <div class="order-2 lg:order-1">
+      <div class="mb-6 flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Activity</h2>
+        <div class="flex items-center gap-2 text-xs text-muted-foreground">
+          <span>Less</span>
+          <div class="flex gap-0.5">
+            <div class="h-3 w-3 rounded-sm bg-muted"></div>
+            <div class="h-3 w-3 rounded-sm bg-foreground/20"></div>
+            <div class="h-3 w-3 rounded-sm bg-foreground/40"></div>
+            <div class="h-3 w-3 rounded-sm bg-foreground/60"></div>
+            <div class="h-3 w-3 rounded-sm bg-foreground/80"></div>
+          </div>
+          <span>More</span>
+        </div>
+      </div>
+      
+      <SprintCalendar client:load />
+    </div>
+    
+    <div class="order-1 lg:order-2">
+      <div class="sticky top-24 rounded-xl border p-6">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Today's Tasks</h2>
+          <span class="text-sm text-muted-foreground" id="current-date">
+            {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+          </span>
+        </div>
+        
+        <div id="tasks-container" class="space-y-3">
+          <div class="flex items-start gap-3 rounded-lg border p-3">
+            <input type="checkbox" class="mt-1 h-4 w-4 rounded border-2" />
+            <div class="flex-1">
+              <p class="text-sm">Review bug bounty submissions</p>
+              <span class="text-xs text-muted-foreground">2h estimated</span>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-3 rounded-lg border p-3">
+            <input type="checkbox" class="mt-1 h-4 w-4 rounded border-2" checked />
+            <div class="flex-1">
+              <p class="text-sm line-through text-muted-foreground">Complete CTF challenge writeup</p>
+              <span class="text-xs text-muted-foreground">1h estimated</span>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-3 rounded-lg border p-3">
+            <input type="checkbox" class="mt-1 h-4 w-4 rounded border-2" />
+            <div class="flex-1">
+              <p class="text-sm">Practice binary exploitation</p>
+              <span class="text-xs text-muted-foreground">3h estimated</span>
+            </div>
+          </div>
+        </div>
+        
+        <button 
+          id="add-task-btn"
+          class="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-dashed py-3 text-sm text-muted-foreground hover:border-foreground hover:text-foreground transition-colors"
+        >
+          <Icon name="lucide:plus" class="size-4" />
+          Add task
+        </button>
+        
+        <div class="mt-6 border-t pt-4">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-muted-foreground">Completed</span>
+            <span class="font-medium">1/3</span>
+          </div>
+          <div class="mt-2 h-2 overflow-hidden rounded-full bg-muted">
+            <div class="h-full w-1/3 rounded-full bg-foreground transition-all"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="mt-12">
+    <h2 class="mb-6 text-lg font-semibold">Recent Sprints</h2>
+    
+    <div class="space-y-4">
+      <div class="group rounded-xl border p-5 transition-colors hover:bg-muted/50">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background">
+              <Icon name="lucide:check" class="size-5" />
+            </div>
+            <div>
+              <h3 class="font-medium">DEFCON CTF Preparation</h3>
+              <p class="text-sm text-muted-foreground">Dec 1 - Dec 14, 2024</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-6">
+            <div class="text-right">
+              <p class="text-2xl font-bold">24</p>
+              <p class="text-xs text-muted-foreground">tasks</p>
+            </div>
+            <div class="text-right">
+              <p class="text-2xl font-bold">48h</p>
+              <p class="text-xs text-muted-foreground">logged</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="group rounded-xl border p-5 transition-colors hover:bg-muted/50">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-4">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full border-2">
+              <Icon name="lucide:loader" class="size-5" />
+            </div>
+            <div>
+              <h3 class="font-medium">Bug Bounty Sprint</h3>
+              <p class="text-sm text-muted-foreground">Dec 15 - ongoing</p>
+            </div>
+          </div>
+          
+          <div class="flex items-center gap-6">
+            <div class="text-right">
+              <p class="text-2xl font-bold">12</p>
+              <p class="text-xs text-muted-foreground">tasks</p>
+            </div>
+            <div class="text-right">
+              <p class="text-2xl font-bold">18h</p>
+              <p class="text-xs text-muted-foreground">logged</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const addTaskBtn = document.getElementById('add-task-btn')
+  const tasksContainer = document.getElementById('tasks-container')
+  
+  addTaskBtn?.addEventListener('click', () => {
+    const task = document.createElement('div')
+    task.className = 'flex items-start gap-3 rounded-lg border p-3'
+    task.innerHTML = `
+      <input type="checkbox" class="mt-1 h-4 w-4 rounded border-2" />
+      <div class="flex-1">
+        <input type="text" placeholder="Enter task..." class="w-full bg-transparent text-sm outline-none" autofocus />
+        <span class="text-xs text-muted-foreground">New task</span>
+      </div>
+    `
+    tasksContainer?.appendChild(task)
+  })
+</script>

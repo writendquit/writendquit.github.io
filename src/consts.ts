@@ -1,14 +1,14 @@
 import type { IconMap, SocialLink, Site } from '@/types'
 
 export const SITE: Site = {
-  title: 'astro-erudite',
+  title: 'ZeroDay',
   description:
-    'astro-erudite is a opinionated, unstyled blogging template—built with Astro, Tailwind, and shadcn/ui.',
-  href: 'https://astro-erudite.vercel.app',
-  author: 'jktrn',
+    'Security researcher, bug bounty hunter, and CTF player. Building the future of cybersecurity.',
+  href: 'https://aerlynvorynx.github.io',
+  author: 'ZeroDay',
   locale: 'en-US',
-  featuredPostCount: 2,
-  postsPerPage: 3,
+  featuredPostCount: 3,
+  postsPerPage: 6,
 }
 
 export const NAV_LINKS: SocialLink[] = [
@@ -17,8 +17,12 @@ export const NAV_LINKS: SocialLink[] = [
     label: 'blog',
   },
   {
-    href: '/authors',
-    label: 'authors',
+    href: '/sprints',
+    label: 'sprints',
+  },
+  {
+    href: '/ctfs',
+    label: 'ctfs',
   },
   {
     href: '/about',
@@ -28,15 +32,19 @@ export const NAV_LINKS: SocialLink[] = [
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
-    href: 'https://github.com/jktrn',
+    href: 'https://github.com/aerlynvorynx',
     label: 'GitHub',
   },
   {
-    href: 'https://twitter.com/enscry',
+    href: 'https://twitter.com/aerlynvorynx',
     label: 'Twitter',
   },
   {
-    href: 'mailto:jason@enscribe.dev',
+    href: 'https://discord.gg/aerlynvorynx',
+    label: 'Discord',
+  },
+  {
+    href: 'mailto:contact@aerlynvorynx.dev',
     label: 'Email',
   },
   {
@@ -50,6 +58,23 @@ export const ICON_MAP: IconMap = {
   GitHub: 'lucide:github',
   LinkedIn: 'lucide:linkedin',
   Twitter: 'lucide:twitter',
+  Discord: 'lucide:message-circle',
   Email: 'lucide:mail',
   RSS: 'lucide:rss',
 }
+
+export const BUG_BOUNTY_STATS = [
+  { company: 'Google', bugs: 12, severity: 'Critical', reward: '$15,000' },
+  { company: 'Microsoft', bugs: 8, severity: 'High', reward: '$8,500' },
+  { company: 'Meta', bugs: 5, severity: 'Medium', reward: '$3,200' },
+  { company: 'Apple', bugs: 3, severity: 'High', reward: '$5,000' },
+]
+
+export const PROJECT_STATS = [
+  { name: 'Security Tools', count: 15, icon: 'lucide:shield' },
+  { name: 'CTF Challenges', count: 42, icon: 'lucide:flag' },
+  { name: 'Vulnerabilities Found', count: 89, icon: 'lucide:bug' },
+  { name: 'Open Source Contributions', count: 127, icon: 'lucide:git-branch' },
+]
+
+

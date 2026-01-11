@@ -1,0 +1,211 @@
+---
+interface Props {
+  readingTime: string
+}
+
+const { readingTime } = Astro.props
+---
+
+<div id="reading-progress-container" class="fixed top-[57px] left-0 right-0 z-40 pointer-events-none opacity-0 transition-opacity duration-300">
+  <div class="h-10 bg-background/90 backdrop-blur-md border-b pointer-events-auto">
+    <div class="h-full max-w-5xl mx-auto px-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <span id="progress-percent" class="text-sm font-mono font-medium">0%</span>
+        <div class="h-1.5 w-32 sm:w-48 bg-muted rounded-full overflow-hidden">
+          <div id="progress-bar" class="h-full bg-foreground rounded-full transition-all duration-150" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 text-sm text-muted-foreground">
+        <span id="time-remaining" class="hidden sm:inline">{readingTime}</span>
+        <span id="word-count" class="hidden sm:inline"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="rabbit-scene" class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none h-20 overflow-hidden">
+  <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-foreground/10 to-transparent"></div>
+  
+  <svg id="grass-svg" class="absolute bottom-0 left-0 right-0 h-6" preserveAspectRatio="none">
+    <defs>
+      <pattern id="grass-pattern" width="20" height="24" patternUnits="userSpaceOnUse">
+        <path d="M2 24 L2 18 Q2 14 4 12 Q2 14 2 18" fill="none" stroke="currentColor" stroke-width="1" class="text-foreground/20"/>
+        <path d="M6 24 L6 16 Q6 10 8 8 Q6 10 6 16" fill="none" stroke="currentColor" stroke-width="1" class="text-foreground/20"/>
+        <path d="M10 24 L10 14 Q10 8 12 6 Q10 8 10 14" fill="none" stroke="currentColor" stroke-width="1" class="text-foreground/20"/>
+        <path d="M14 24 L14 17 Q14 12 16 10 Q14 12 14 17" fill="none" stroke="currentColor" stroke-width="1" class="text-foreground/20"/>
+        <path d="M18 24 L18 15 Q18 9 20 7 Q18 9 18 15" fill="none" stroke="currentColor" stroke-width="1" class="text-foreground/20"/>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#grass-pattern)" />
+  </svg>
+
+  <div id="rabbit" class="absolute bottom-4 transition-all duration-100" style="left: -60px;">
+    <svg width="50" height="40" viewBox="0 0 50 40" class="transform scale-x-1">
+      <ellipse cx="25" cy="28" rx="15" ry="10" fill="currentColor" class="text-foreground/80"/>
+      <circle cx="32" cy="20" r="8" fill="currentColor" class="text-foreground/80"/>
+      <ellipse cx="28" cy="8" rx="3" ry="10" fill="currentColor" class="text-foreground/80"/>
+      <ellipse cx="36" cy="8" rx="3" ry="10" fill="currentColor" class="text-foreground/80"/>
+      <ellipse cx="28" cy="10" rx="1.5" ry="6" fill="currentColor" class="text-background/50"/>
+      <ellipse cx="36" cy="10" rx="1.5" ry="6" fill="currentColor" class="text-background/50"/>
+      <circle cx="35" cy="18" r="1.5" fill="currentColor" class="text-background"/>
+      <ellipse cx="38" cy="22" rx="2" ry="1" fill="currentColor" class="text-background/50"/>
+      <circle cx="10" cy="28" r="4" fill="currentColor" class="text-foreground/80"/>
+      <ellipse id="rabbit-leg-back" cx="18" cy="35" rx="4" ry="3" fill="currentColor" class="text-foreground/60"/>
+      <ellipse id="rabbit-leg-front" cx="32" cy="35" rx="4" ry="3" fill="currentColor" class="text-foreground/60"/>
+    </svg>
+  </div>
+
+  <div id="well" class="absolute bottom-0 right-8 opacity-0 transition-opacity duration-500" style="transform: translateY(20px);">
+    <svg width="60" height="50" viewBox="0 0 60 50">
+      <ellipse cx="30" cy="45" rx="28" ry="5" fill="currentColor" class="text-foreground/30"/>
+      <rect x="5" y="20" width="50" height="25" fill="currentColor" class="text-foreground/20" rx="2"/>
+      <ellipse cx="30" cy="20" rx="25" ry="8" fill="currentColor" class="text-foreground/30"/>
+      <ellipse cx="30" cy="20" rx="18" ry="5" fill="currentColor" class="text-background"/>
+      <rect x="28" y="2" width="4" height="18" fill="currentColor" class="text-foreground/40"/>
+      <rect x="15" y="0" width="30" height="4" fill="currentColor" class="text-foreground/40" rx="1"/>
+    </svg>
+  </div>
+</div>
+
+<style>
+  @keyframes hop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  
+  @keyframes ear-twitch {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+  }
+  
+  #rabbit.hopping {
+    animation: hop 0.3s ease-in-out infinite;
+  }
+  
+  #rabbit.falling {
+    animation: none;
+    transition: all 0.8s cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  
+  @keyframes splash {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+  
+  .splash-effect {
+    animation: splash 0.5s ease-out forwards;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const container = document.getElementById('reading-progress-container')
+    const progressBar = document.getElementById('progress-bar')
+    const progressPercent = document.getElementById('progress-percent')
+    const timeRemaining = document.getElementById('time-remaining')
+    const wordCount = document.getElementById('word-count')
+    const rabbit = document.getElementById('rabbit')
+    const well = document.getElementById('well')
+    const rabbitScene = document.getElementById('rabbit-scene')
+    
+    if (!container || !progressBar || !rabbit) return
+    
+    const article = document.querySelector('article.prose')
+    if (!article) return
+    
+    const words = article.textContent?.split(/\s+/).length || 0
+    if (wordCount) wordCount.textContent = `${words.toLocaleString()} words`
+    
+    const wordsPerMinute = 200
+    const totalMinutes = Math.ceil(words / wordsPerMinute)
+    
+    let lastProgress = 0
+    let rabbitFallen = false
+    
+    const updateProgress = () => {
+      const articleRect = article.getBoundingClientRect()
+      const articleTop = articleRect.top + window.scrollY
+      const articleHeight = articleRect.height
+      const windowHeight = window.innerHeight
+      const scrolled = window.scrollY - articleTop + windowHeight * 0.3
+      
+      let progress = Math.max(0, Math.min(100, (scrolled / articleHeight) * 100))
+      
+      if (window.scrollY > 100) {
+        container.classList.remove('opacity-0')
+        container.classList.add('opacity-100')
+        rabbitScene?.classList.remove('opacity-0')
+      } else {
+        container.classList.add('opacity-0')
+        container.classList.remove('opacity-100')
+      }
+      
+      progressBar.style.width = `${progress}%`
+      if (progressPercent) progressPercent.textContent = `${Math.round(progress)}%`
+      
+      const remainingPercent = (100 - progress) / 100
+      const remainingMinutes = Math.ceil(totalMinutes * remainingPercent)
+      if (timeRemaining) {
+        timeRemaining.textContent = remainingMinutes <= 1 ? '< 1 min left' : `${remainingMinutes} min left`
+      }
+      
+      const viewportWidth = window.innerWidth
+      const wellPosition = viewportWidth - 80
+      const rabbitTargetX = (progress / 100) * (wellPosition + 30) - 60
+      
+      if (!rabbitFallen) {
+        rabbit.style.left = `${rabbitTargetX}px`
+        
+        if (progress > lastProgress + 0.5) {
+          rabbit.classList.add('hopping')
+        } else {
+          rabbit.classList.remove('hopping')
+        }
+      }
+      
+      if (progress >= 85 && well) {
+        well.style.opacity = '1'
+        well.style.transform = 'translateY(0)'
+      }
+      
+      if (progress >= 98 && !rabbitFallen) {
+        rabbitFallen = true
+        rabbit.classList.remove('hopping')
+        rabbit.classList.add('falling')
+        
+        setTimeout(() => {
+          rabbit.style.left = `${wellPosition - 25}px`
+          rabbit.style.transform = 'translateY(30px) rotate(90deg) scale(0.5)'
+          rabbit.style.opacity = '0'
+        }, 100)
+        
+        setTimeout(() => {
+          const splash = document.createElement('div')
+          splash.className = 'absolute rounded-full bg-foreground/20 splash-effect'
+          splash.style.width = '20px'
+          splash.style.height = '10px'
+          splash.style.right = '35px'
+          splash.style.bottom = '25px'
+          rabbitScene?.appendChild(splash)
+          
+          setTimeout(() => splash.remove(), 500)
+        }, 600)
+      }
+      
+      lastProgress = progress
+    }
+    
+    let ticking = false
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateProgress()
+          ticking = false
+        })
+        ticking = true
+      }
+    })
+    
+    updateProgress()
+  })
+</script>

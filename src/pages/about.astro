@@ -1,46 +1,69 @@
 ---
-import Breadcrumbs from '@/components/Breadcrumbs.astro'
-import Link from '@/components/Link.astro'
 import PageHead from '@/components/PageHead.astro'
-import ProjectCard from '@/components/ProjectCard.astro'
 import Layout from '@/layouts/Layout.astro'
-import { getAllProjects } from '@/lib/data-utils'
-
-const projects = await getAllProjects()
+import { Icon } from 'astro-icon/components'
+import Link from '@/components/Link.astro'
+import { buttonVariants } from '@/components/ui/button'
 ---
 
 <Layout class="max-w-3xl">
   <PageHead slot="head" title="About" />
-  <Breadcrumbs items={[{ label: 'About', icon: 'lucide:info' }]} />
-
-  <section>
-    <div class="min-w-full">
-      <div class="prose mb-8">
-        <p class="mt-0">
-          astro-erudite is an opinionated, unstyled static blogging template
-          that prioritizes simplicity and performance, built with <Link
-            href="https://astro.build"
-            external
-            underline>Astro</Link
-          >, <Link href="https://tailwindcss.com" external underline
-            >Tailwind</Link
-          >, and <Link href="https://ui.shadcn.com" external underline
-            >shadcn/ui</Link
-          >. It provides a clean foundation for your content while being
-          extremely easy to customize.
-        </p>
-        <p>
-          To learn more about the philosophy behind this template, check out the
-          following blog post: <Link
-            href="/blog/the-state-of-static-blogs"
-            underline>The State of Static Blogs in 2024</Link
-          >.
-        </p>
+  
+  <section class="py-12">
+    <div class="flex flex-col gap-8 md:flex-row md:items-start">
+      <div class="shrink-0">
+        <div class="size-28 rounded-full border-2 border-foreground/10 p-1">
+          <div class="flex h-full w-full items-center justify-center rounded-full bg-muted">
+            <Icon name="lucide:user" class="size-12 text-muted-foreground" />
+          </div>
+        </div>
       </div>
-
-      <h2 class="mb-4 text-2xl font-medium">Example Projects Listing</h2>
-      <div class="flex flex-col gap-4">
-        {projects.map((project) => <ProjectCard project={project} />)}
+      
+      <div class="flex-1">
+        <h1 class="mb-6 text-4xl font-bold tracking-tight">.;,;.</h1>
+        
+        <p class="mb-2 text-lg text-muted-foreground">/ˈsmaɪli/ • noun</p>
+        
+        <div class="mb-6 space-y-4 text-muted-foreground">
+          <p>
+            <span class="font-medium text-foreground">CTF Player</span> — 
+            Competitive capture-the-flag player, ranked among top teams globally on CTFtime.
+          </p>
+          <p>
+            <span class="font-medium text-foreground">Security Researcher</span> — 
+            Finding vulnerabilities in web applications, binaries, and cryptographic systems.
+          </p>
+          <p>
+            <span class="font-medium text-foreground">Bug Bounty Hunter</span> — 
+            Having fun breaking things responsibly and getting paid for it.
+          </p>
+        </div>
+        
+        <div class="flex flex-wrap gap-3">
+          <Link 
+            href="https://github.com/aerlynvorynx" 
+            external
+            class={buttonVariants({ variant: 'outline', size: 'sm' })}
+          >
+            <Icon name="lucide:github" class="mr-2 size-4" />
+            GitHub
+          </Link>
+          <Link 
+            href="https://twitter.com/aerlynvorynx" 
+            external
+            class={buttonVariants({ variant: 'outline', size: 'sm' })}
+          >
+            <Icon name="lucide:twitter" class="mr-2 size-4" />
+            Twitter
+          </Link>
+          <Link 
+            href="mailto:contact@aerlynvorynx.dev" 
+            class={buttonVariants({ variant: 'outline', size: 'sm' })}
+          >
+            <Icon name="lucide:mail" class="mr-2 size-4" />
+            Email
+          </Link>
+        </div>
       </div>
     </div>
   </section>

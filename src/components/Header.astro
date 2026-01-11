@@ -1,36 +1,131 @@
 ---
 import Link from '@/components/Link.astro'
 import ThemeToggle from '@/components/ThemeToggle.astro'
-import { NAV_LINKS, SITE } from '@/consts'
-import { Image } from 'astro:assets'
-import logo from '../../public/static/logo.svg'
+import { Icon } from 'astro-icon/components'
+
+const currentPath = Astro.url.pathname
+
+const navLinks = [
+  { href: '/blog', label: 'BLOG', hasDropdown: false },
+  { href: '/ctfs', label: 'CTFS', hasDropdown: false },
+  { href: '/sprints', label: 'SPRINTS', hasDropdown: false },
+  { href: '/about', label: 'ABOUT', hasDropdown: false },
+]
 ---
 
-<div>
-  <div
-    class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-3"
-  >
-    <Link href="/" class="flex shrink-0 items-center justify-center gap-3">
-      <Image src={logo} alt="Logo" class="size-5 sm:size-6" />
-      <span
-        class="hidden h-full text-lg leading-none font-medium min-[400px]:block"
-        >{SITE.title}</span
-      >
+<header class="sticky top-0 z-50 bg-background border-b">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+    <!-- Logo -->
+    <Link href="/" class="flex shrink-0 items-center gap-2 group">
+      <div class="relative w-6 h-6 rounded overflow-hidden border border-border">
+        <img 
+          src="/static/zdrx7.jpeg" 
+          alt="ZDRX-7" 
+          class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300"
+        />
+      </div>
+      <span class="text-sm font-bold tracking-tight">ZDRX-7</span>
     </Link>
-    <div class="flex items-center gap-4">
-      <nav class="flex items-center gap-4 text-sm sm:gap-6">
-        {
-          NAV_LINKS.map((item) => (
-            <Link
-              href={item.href}
-              class="text-foreground/60 hover:text-foreground capitalize transition-colors"
-            >
-              {item.label}
-            </Link>
-          ))
-        }
-      </nav>
+    
+    <!-- Center Nav -->
+    <nav class="hidden items-center gap-1 lg:flex">
+      {navLinks.map((item) => {
+        const isActive = currentPath === item.href || 
+                       (item.href !== '/' && currentPath.startsWith(item.href))
+        return (
+          <Link
+            href={item.href}
+            class={`px-3 py-1.5 text-xs font-medium tracking-wider transition-colors ${
+              isActive 
+                ? 'text-foreground' 
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {item.label}
+            {item.hasDropdown && <Icon name="lucide:chevron-down" class="size-3 ml-1 inline" />}
+          </Link>
+        )
+      })}
+    </nav>
+    
+    <!-- Right Side -->
+    <div class="flex items-center gap-2">
       <ThemeToggle transition:persist />
+      
+      <Link 
+        href="https://github.com/aerlynvorynx" 
+        external 
+        class="hidden px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors lg:block"
+      >
+        GITHUB
+      </Link>
+      
+      <Link 
+        href="/about" 
+        class="hidden px-4 py-1.5 text-xs font-medium border rounded hover:bg-muted transition-colors lg:block"
+      >
+        CONTACT
+      </Link>
+      
+      <!-- Mobile Menu Toggle -->
+      <button 
+        id="mobile-menu-toggle"
+        class="p-2 text-muted-foreground hover:text-foreground transition-colors lg:hidden"
+        aria-label="Toggle menu"
+      >
+        <Icon name="lucide:menu" class="size-5" id="menu-icon" />
+        <Icon name="lucide:x" class="hidden size-5" id="close-icon" />
+      </button>
     </div>
   </div>
-</div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden border-t lg:hidden">
+    <nav class="flex flex-col p-4 space-y-1">
+      {navLinks.map((item) => {
+        const isActive = currentPath === item.href || 
+                       (item.href !== '/' && currentPath.startsWith(item.href))
+        return (
+          <Link
+            href={item.href}
+            class={`px-3 py-2 text-sm font-medium tracking-wider transition-colors ${
+              isActive 
+                ? 'text-foreground bg-muted rounded' 
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {item.label}
+          </Link>
+        )
+      })}
+      <div class="border-t my-2"></div>
+      <Link 
+        href="https://github.com/aerlynvorynx" 
+        external 
+        class="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <Icon name="lucide:github" class="size-4" />
+        GitHub
+      </Link>
+    </nav>
+  </div>
+</header>
+
+<script>
+  function initMobileMenu() {
+    const toggle = document.getElementById('mobile-menu-toggle')
+    const menu = document.getElementById('mobile-menu')
+    const menuIcon = document.getElementById('menu-icon')
+    const closeIcon = document.getElementById('close-icon')
+    
+    toggle?.addEventListener('click', () => {
+      const isOpen = menu?.classList.contains('hidden')
+      menu?.classList.toggle('hidden', !isOpen)
+      menuIcon?.classList.toggle('hidden', isOpen)
+      closeIcon?.classList.toggle('hidden', !isOpen)
+    })
+  }
+  
+  initMobileMenu()
+  document.addEventListener('astro:after-swap', initMobileMenu)
+</script>

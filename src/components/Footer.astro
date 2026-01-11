@@ -1,26 +1,52 @@
 ---
-import { Separator } from '@/components/ui/separator'
-import { SOCIAL_LINKS } from '@/consts'
+import { SITE } from '@/consts'
+import { Icon } from 'astro-icon/components'
 import Link from './Link.astro'
-import SocialIcons from './SocialIcons.astro'
 ---
 
-<footer
-  class="mx-auto mb-8 flex w-full max-w-3xl flex-col items-center justify-center gap-y-2 px-4 sm:mb-4 sm:flex-row sm:justify-between"
->
-  <div class="flex flex-wrap items-center justify-center gap-x-2 text-center">
-    <span class="text-muted-foreground text-sm">
-      &copy; {new Date().getFullYear()} All rights reserved.
-    </span>
-    <Separator orientation="vertical" className="hidden h-4! sm:block" />
-    <p class="text-muted-foreground text-sm">
-      Made with 🤍 by <Link
-        href="https://github.com/jktrn"
-        class="text-foreground"
-        external
-        underline>enscribe</Link
-      >!
-    </p>
+<footer class="border-t">
+  <div class="mx-auto max-w-7xl px-4 py-8">
+    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+      <div class="flex items-center gap-4">
+        <Link href="/" class="font-medium">.;,;.</Link>
+        <span class="text-sm text-muted-foreground">
+          &copy; {new Date().getFullYear()}
+        </span>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <Link 
+          href="https://ctftime.org" 
+          external 
+          class="text-muted-foreground hover:text-foreground transition-colors"
+          title="CTFtime"
+        >
+          <Icon name="lucide:flag" class="size-5" />
+        </Link>
+        <Link 
+          href="https://github.com/aerlynvorynx" 
+          external 
+          class="text-muted-foreground hover:text-foreground transition-colors"
+          title="GitHub"
+        >
+          <Icon name="lucide:github" class="size-5" />
+        </Link>
+        <Link 
+          href="https://twitter.com/aerlynvorynx" 
+          external 
+          class="text-muted-foreground hover:text-foreground transition-colors"
+          title="Twitter/X"
+        >
+          <Icon name="lucide:twitter" class="size-5" />
+        </Link>
+        <Link 
+          href="/rss.xml" 
+          class="text-muted-foreground hover:text-foreground transition-colors"
+          title="RSS Feed"
+        >
+          <Icon name="lucide:rss" class="size-5" />
+        </Link>
+      </div>
+    </div>
   </div>
-  <SocialIcons links={SOCIAL_LINKS} />
 </footer>
