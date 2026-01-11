@@ -154,12 +154,11 @@
   </svg>
 </button>
 
-<!-- Neo's Screen - Exact Movie Recreation (The Matrix 1999) -->
+<!-- Neo's Screen - Terminal Style -->
 <div id="matrix-container" class="fixed inset-0 z-[9999] pointer-events-none opacity-0">
-  <!-- Pure black screen with terminal text - exactly like the movie -->
-  <div id="neo-screen" class="absolute inset-0 bg-black flex items-start justify-start p-8 md:p-16">
-    <div class="neo-terminal font-mono text-base md:text-xl leading-relaxed">
-      <span id="neo-text"></span><span id="neo-cursor" class="neo-cursor">█</span>
+  <div id="neo-screen" class="absolute inset-0 bg-black overflow-hidden">
+    <div class="neo-terminal" id="neo-terminal">
+      <pre id="neo-text" class="neo-text"></pre><span id="neo-cursor" class="neo-cursor">_</span>
     </div>
   </div>
 </div>
@@ -566,7 +565,7 @@
     }
   }
   
-  /* ===== NEO'S SCREEN - EXACT MOVIE STYLE ===== */
+  /* ===== NEO'S SCREEN ===== */
   #matrix-container.active {
     opacity: 1;
     pointer-events: auto;
@@ -577,20 +576,32 @@
   }
   
   .neo-terminal {
-    color: #00ff00;
-    font-family: 'Courier New', 'Lucida Console', Monaco, monospace;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #33ff33;
+  }
+  
+  .neo-text {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    display: inline;
     white-space: pre-wrap;
     word-wrap: break-word;
   }
   
-  #neo-text {
-    color: #00ff00;
-  }
-  
-  /* Blinking block cursor - exactly like old terminals */
   .neo-cursor {
-    color: #00ff00;
-    animation: neo-blink 1s step-end infinite;
+    color: #33ff33;
+    font-weight: bold;
+    animation: neo-blink 0.7s step-end infinite;
   }
   
   @keyframes neo-blink {
@@ -699,8 +710,53 @@
       butterflyEl.classList.add('hidden')
     }
     
-    // ===== NEO'S SCREEN - EXACT MOVIE RECREATION =====
-    // The exact messages from The Matrix (1999) - Neo's computer screen scene
+    // ===== NEO'S SCREEN - SEARCH DATA + MESSAGES =====
+    
+    // Search results / data that scrolls first (like in the movie)
+    const searchData = [
+      'SEARCH: MORPHEUS',
+      '',
+      '> Searching global database...',
+      '> Connection established: NODE 7749-B',
+      '',
+      'CLASSIFIED - LEVEL 5 CLEARANCE REQUIRED',
+      '=========================================',
+      '',
+      'Subject: MORPHEUS',
+      'Status: ACTIVE THREAT',
+      'Known Aliases: The One Who Knows, Captain',
+      'Last Known Location: [REDACTED]',
+      '',
+      'INTERPOL BULLETIN #445-7721:',
+      'Wanted for cyber terrorism, data theft,',
+      'unauthorized system access. Considered',
+      'extremely dangerous. Do not approach.',
+      '',
+      'FBI CASE FILE #MT-2199:',
+      'Connection to underground network confirmed.',
+      'Manhattan Project files accessed illegally.',
+      'Multiple government systems compromised.',
+      '',
+      'NSA INTERCEPT LOG:',
+      '> "He\'s looking for something..."',
+      '> "The One? That\'s just a legend..."',
+      '> "Morpheus believes. That makes him dangerous."',
+      '',
+      'RELATED SEARCHES:',
+      '- The Matrix (meaning unknown)',
+      '- Red pill / Blue pill (code phrase?)',
+      '- Nebuchadnezzar (vessel ID?)',
+      '- Zion (location unconfirmed)',
+      '',
+      '=========================================',
+      'END SEARCH RESULTS',
+      '=========================================',
+      '',
+      '',
+      ''
+    ]
+    
+    // Final messages that appear after search data
     const neoMessages = [
       'Wake up, Neo...',
       'The Matrix has you...',
@@ -708,37 +764,69 @@
       'Knock, knock, Neo.'
     ]
     
-    let currentText = ''
-    let messageIndex = 0
-    let charIndex = 0
     let typingTimeout: number | null = null
+    let phase: 'search' | 'clear' | 'messages' = 'search'
+    let lineIndex = 0
+    let charIndex = 0
+    let displayedText = ''
     
-    // Type one character at a time - exactly like the movie
     const typeNextChar = () => {
       if (!matrixActive || !neoText) return
       
-      const currentMessage = neoMessages[messageIndex]
-      
-      if (charIndex < currentMessage.length) {
-        // Type next character
-        currentText += currentMessage[charIndex]
-        neoText.textContent = currentText
-        charIndex++
-        
-        // Typing speed - like someone typing on keyboard
-        typingTimeout = window.setTimeout(typeNextChar, 70 + Math.random() * 50)
-      } else {
-        // Finished current line
-        charIndex = 0
-        messageIndex++
-        
-        if (messageIndex < neoMessages.length) {
-          // Add new line and pause before next message
-          currentText += '\n\n'
-          neoText.textContent = currentText
-          typingTimeout = window.setTimeout(typeNextChar, 2000) // Pause between messages
+      if (phase === 'search') {
+        // Phase 1: Type search data quickly
+        if (lineIndex < searchData.length) {
+          const currentLine = searchData[lineIndex]
+          
+          if (charIndex < currentLine.length) {
+            displayedText += currentLine[charIndex]
+            neoText.textContent = displayedText
+            charIndex++
+            typingTimeout = window.setTimeout(typeNextChar, 8 + Math.random() * 12) // Fast typing
+          } else {
+            // Line complete, move to next
+            displayedText += '\n'
+            neoText.textContent = displayedText
+            charIndex = 0
+            lineIndex++
+            typingTimeout = window.setTimeout(typeNextChar, 50 + Math.random() * 100) // Brief pause between lines
+          }
+        } else {
+          // Search data complete, pause then clear
+          phase = 'clear'
+          typingTimeout = window.setTimeout(typeNextChar, 1500)
         }
-        // If all messages done, just keep showing with blinking cursor
+      } else if (phase === 'clear') {
+        // Phase 2: Clear screen
+        displayedText = ''
+        neoText.textContent = ''
+        lineIndex = 0
+        charIndex = 0
+        phase = 'messages'
+        typingTimeout = window.setTimeout(typeNextChar, 800)
+      } else if (phase === 'messages') {
+        // Phase 3: Type the famous messages slowly
+        if (lineIndex < neoMessages.length) {
+          const currentMessage = neoMessages[lineIndex]
+          
+          if (charIndex < currentMessage.length) {
+            displayedText += currentMessage[charIndex]
+            neoText.textContent = displayedText
+            charIndex++
+            typingTimeout = window.setTimeout(typeNextChar, 80 + Math.random() * 40) // Slower, deliberate typing
+          } else {
+            // Message complete
+            charIndex = 0
+            lineIndex++
+            
+            if (lineIndex < neoMessages.length) {
+              displayedText += '\n\n'
+              neoText.textContent = displayedText
+              typingTimeout = window.setTimeout(typeNextChar, 2500) // Long pause between messages
+            }
+            // Done - cursor keeps blinking
+          }
+        }
       }
     }
     
@@ -747,17 +835,17 @@
       matrixActive = true
       
       // Reset state
-      currentText = ''
-      messageIndex = 0
+      phase = 'search'
+      lineIndex = 0
       charIndex = 0
+      displayedText = ''
       
       if (neoText) neoText.textContent = ''
       
-      // Show the black screen
       matrixContainer?.classList.add('active')
       
-      // Start typing after a short pause (cursor blinks first like in movie)
-      typingTimeout = window.setTimeout(typeNextChar, 1500)
+      // Start after cursor blinks briefly
+      typingTimeout = window.setTimeout(typeNextChar, 500)
     }
     
     const stopNeoScreen = () => {
@@ -771,8 +859,9 @@
       matrixContainer?.classList.remove('active')
       
       if (neoText) neoText.textContent = ''
-      currentText = ''
-      messageIndex = 0
+      displayedText = ''
+      phase = 'search'
+      lineIndex = 0
       charIndex = 0
       
       resetIdleTimer()
