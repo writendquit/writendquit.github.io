@@ -3,6 +3,7 @@ import '@/styles/global.css'
 import '@/styles/typography.css'
 
 import Footer from '@/components/Footer.astro'
+import GlobalStats from '@/components/GlobalStats.astro'
 import Head from '@/components/Head.astro'
 import Header from '@/components/Header.astro'
 import WanderingRabbit from '@/components/WanderingRabbit.astro'
@@ -40,5 +41,6 @@ const { class: className, hideFooter = false } = Astro.props
       <slot />
     </main>
     {!hideFooter && <Footer />}
+    <GlobalStats />
   </body>
 </html>

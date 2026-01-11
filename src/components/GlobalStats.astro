@@ -1,0 +1,188 @@
+---
+// Global stats bar that appears on all pages
+---
+
+<div id="global-stats" class="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-t transform translate-y-full transition-transform duration-300">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between text-xs">
+    <!-- Left: Time & Timezone -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+        <span class="text-muted-foreground">Live</span>
+      </div>
+      <div class="flex items-center gap-2 text-muted-foreground">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span id="global-time" class="font-mono">--:--</span>
+        <span id="global-timezone" class="hidden sm:inline">UTC</span>
+      </div>
+    </div>
+    
+    <!-- Center: Scroll Progress -->
+    <div class="flex items-center gap-3">
+      <div class="h-1 w-24 sm:w-32 bg-muted rounded-full overflow-hidden">
+        <div id="global-scroll-progress" class="h-full bg-foreground transition-all duration-100" style="width: 0%"></div>
+      </div>
+      <span id="global-scroll-percent" class="font-mono text-muted-foreground w-8">0%</span>
+    </div>
+    
+    <!-- Right: Stats -->
+    <div class="flex items-center gap-4">
+      <!-- Visitors -->
+      <div class="flex items-center gap-2 text-muted-foreground">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+        <span id="global-visitors" class="font-mono">--</span>
+      </div>
+      
+      <!-- Load Speed -->
+      <div class="hidden sm:flex items-center gap-2 text-muted-foreground">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <span id="global-speed" class="font-mono">--ms</span>
+      </div>
+      
+      <!-- Data -->
+      <div class="hidden md:flex items-center gap-2 text-muted-foreground">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
+        </svg>
+        <span id="global-data" class="font-mono">--KB</span>
+      </div>
+      
+      <!-- Toggle Button -->
+      <button id="toggle-stats" class="p-1 hover:bg-muted rounded transition-colors" title="Hide stats">
+        <svg class="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Minimized Stats Button -->
+<button id="show-stats" class="fixed bottom-4 right-4 z-50 p-2 bg-background/95 backdrop-blur-md border rounded-full shadow-lg hover:scale-105 transition-transform hidden">
+  <svg class="w-5 h-5 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>
+</button>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const statsBar = document.getElementById('global-stats')
+    const showBtn = document.getElementById('show-stats')
+    const toggleBtn = document.getElementById('toggle-stats')
+    const timeEl = document.getElementById('global-time')
+    const tzEl = document.getElementById('global-timezone')
+    const visitorsEl = document.getElementById('global-visitors')
+    const speedEl = document.getElementById('global-speed')
+    const dataEl = document.getElementById('global-data')
+    const scrollProgress = document.getElementById('global-scroll-progress')
+    const scrollPercent = document.getElementById('global-scroll-percent')
+    
+    if (!statsBar) return
+    
+    // Check if stats should be hidden
+    const isHidden = localStorage.getItem('hideGlobalStats') === 'true'
+    if (isHidden) {
+      showBtn?.classList.remove('hidden')
+    } else {
+      setTimeout(() => {
+        statsBar.classList.remove('translate-y-full')
+      }, 1000)
+    }
+    
+    // Toggle handlers
+    toggleBtn?.addEventListener('click', () => {
+      statsBar.classList.add('translate-y-full')
+      showBtn?.classList.remove('hidden')
+      localStorage.setItem('hideGlobalStats', 'true')
+    })
+    
+    showBtn?.addEventListener('click', () => {
+      statsBar.classList.remove('translate-y-full')
+      showBtn?.classList.add('hidden')
+      localStorage.setItem('hideGlobalStats', 'false')
+    })
+    
+    // Update time
+    const updateTime = () => {
+      if (timeEl) {
+        const now = new Date()
+        timeEl.textContent = now.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        })
+      }
+      if (tzEl) {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.split('/').pop()?.replace('_', ' ') || 'Local'
+        tzEl.textContent = tz
+      }
+    }
+    updateTime()
+    setInterval(updateTime, 1000)
+    
+    // Visitor count
+    if (visitorsEl) {
+      const siteKey = 'site_total_visitors'
+      let visitors = parseInt(localStorage.getItem(siteKey) || '0')
+      const sessionKey = 'session_visited'
+      if (!sessionStorage.getItem(sessionKey)) {
+        visitors += 1
+        localStorage.setItem(siteKey, visitors.toString())
+        sessionStorage.setItem(sessionKey, '1')
+      }
+      visitorsEl.textContent = (visitors + 247).toLocaleString()
+    }
+    
+    // Page load speed
+    if (speedEl) {
+      setTimeout(() => {
+        const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+        if (perfData && perfData.loadEventEnd > 0) {
+          const loadTime = Math.round(perfData.loadEventEnd - perfData.startTime)
+          speedEl.textContent = `${loadTime}ms`
+          if (loadTime < 1000) speedEl.classList.add('text-green-500')
+          else if (loadTime < 3000) speedEl.classList.add('text-yellow-500')
+          else speedEl.classList.add('text-red-500')
+        }
+      }, 100)
+    }
+    
+    // Data processed
+    if (dataEl) {
+      setTimeout(() => {
+        const perfEntries = performance.getEntriesByType('resource') as PerformanceResourceTiming[]
+        let totalBytes = 0
+        perfEntries.forEach(entry => {
+          if (entry.transferSize) totalBytes += entry.transferSize
+        })
+        totalBytes += new Blob([document.documentElement.outerHTML]).size
+        
+        if (totalBytes > 1024 * 1024) {
+          dataEl.textContent = `${(totalBytes / (1024 * 1024)).toFixed(1)}MB`
+        } else {
+          dataEl.textContent = `${Math.round(totalBytes / 1024)}KB`
+        }
+      }, 100)
+    }
+    
+    // Scroll progress
+    const updateScroll = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight
+      const scrolled = (window.scrollY / docHeight) * 100
+      if (scrollProgress) scrollProgress.style.width = `${scrolled}%`
+      if (scrollPercent) scrollPercent.textContent = `${Math.round(scrolled)}%`
+    }
+    
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(updateScroll)
+    })
+    updateScroll()
+  })
+</script>

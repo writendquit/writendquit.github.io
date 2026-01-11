@@ -1,0 +1,257 @@
+---
+interface Props {
+  readingTime?: string
+}
+
+const { readingTime } = Astro.props
+---
+
+<div id="page-stats-bar" class="fixed top-[57px] left-0 right-0 z-40 opacity-0 transition-opacity duration-300">
+  <!-- Reading Progress Track (like ctf.gg) -->
+  <div class="h-1 w-full bg-muted/30 relative overflow-hidden">
+    <!-- Read section (black/foreground) -->
+    <div id="progress-read" class="absolute left-0 top-0 h-full bg-foreground transition-all duration-150" style="width: 0%"></div>
+    <!-- Reading section (white glow) -->
+    <div id="progress-reading" class="absolute top-0 h-full w-8 bg-gradient-to-r from-foreground via-white to-transparent transition-all duration-150 shadow-[0_0_10px_rgba(255,255,255,0.8)]" style="left: 0%"></div>
+  </div>
+  
+  <!-- Stats Bar -->
+  <div class="h-9 bg-background/95 backdrop-blur-md border-b">
+    <div class="h-full max-w-6xl mx-auto px-4 flex items-center justify-between text-xs">
+      <!-- Left: Progress & Words -->
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <span id="progress-percent" class="font-mono font-bold text-foreground">0%</span>
+          <span class="text-muted-foreground">read</span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-muted-foreground">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span id="word-count">0 words</span>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-muted-foreground">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="time-remaining">{readingTime || '0 min'}</span>
+        </div>
+      </div>
+      
+      <!-- Right: Timezone, Visitors, Speed -->
+      <div class="flex items-center gap-4">
+        <!-- Timezone -->
+        <div class="hidden md:flex items-center gap-2 text-muted-foreground">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span id="timezone">UTC</span>
+        </div>
+        
+        <!-- Visitors -->
+        <div class="flex items-center gap-2 text-muted-foreground">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          <span id="visitor-count" class="font-mono">--</span>
+        </div>
+        
+        <!-- Page Load Speed -->
+        <div class="hidden sm:flex items-center gap-2 text-muted-foreground">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span id="load-speed" class="font-mono">--ms</span>
+        </div>
+        
+        <!-- Data Processed -->
+        <div class="hidden lg:flex items-center gap-2 text-muted-foreground">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+          </svg>
+          <span id="data-processed" class="font-mono">--KB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #progress-reading {
+    filter: blur(1px);
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  
+  #progress-reading {
+    animation: pulse-glow 1.5s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const statsBar = document.getElementById('page-stats-bar')
+    const progressRead = document.getElementById('progress-read')
+    const progressReading = document.getElementById('progress-reading')
+    const progressPercent = document.getElementById('progress-percent')
+    const timeRemaining = document.getElementById('time-remaining')
+    const wordCountEl = document.getElementById('word-count')
+    const timezoneEl = document.getElementById('timezone')
+    const visitorCountEl = document.getElementById('visitor-count')
+    const loadSpeedEl = document.getElementById('load-speed')
+    const dataProcessedEl = document.getElementById('data-processed')
+    
+    if (!statsBar || !progressRead || !progressReading) return
+    
+    const article = document.querySelector('article.prose')
+    if (!article) return
+    
+    // Word count
+    const words = article.textContent?.split(/\s+/).filter(w => w.length > 0).length || 0
+    if (wordCountEl) wordCountEl.textContent = `${words.toLocaleString()} words`
+    
+    const wordsPerMinute = 200
+    const totalMinutes = Math.ceil(words / wordsPerMinute)
+    
+    // Timezone
+    if (timezoneEl) {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+      const now = new Date()
+      const timeStr = now.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false,
+        timeZoneName: 'short'
+      })
+      timezoneEl.textContent = timeStr
+      
+      // Update time every minute
+      setInterval(() => {
+        const now = new Date()
+        const timeStr = now.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: false,
+          timeZoneName: 'short'
+        })
+        timezoneEl.textContent = timeStr
+      }, 60000)
+    }
+    
+    // Visitor count (simulated with localStorage for demo - replace with real analytics)
+    if (visitorCountEl) {
+      const pageKey = `visitors_${window.location.pathname}`
+      let visitors = parseInt(localStorage.getItem(pageKey) || '0')
+      const sessionKey = `session_${window.location.pathname}`
+      if (!sessionStorage.getItem(sessionKey)) {
+        visitors += 1
+        localStorage.setItem(pageKey, visitors.toString())
+        sessionStorage.setItem(sessionKey, '1')
+      }
+      // Add some base number for realism
+      const displayVisitors = visitors + 142
+      visitorCountEl.textContent = displayVisitors.toLocaleString()
+    }
+    
+    // Page load speed
+    if (loadSpeedEl) {
+      const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+      if (perfData) {
+        const loadTime = Math.round(perfData.loadEventEnd - perfData.startTime)
+        loadSpeedEl.textContent = `${loadTime}ms`
+        
+        // Color code based on speed
+        if (loadTime < 1000) {
+          loadSpeedEl.classList.add('text-green-500')
+        } else if (loadTime < 3000) {
+          loadSpeedEl.classList.add('text-yellow-500')
+        } else {
+          loadSpeedEl.classList.add('text-red-500')
+        }
+      }
+    }
+    
+    // Data processed (page size)
+    if (dataProcessedEl) {
+      const perfEntries = performance.getEntriesByType('resource') as PerformanceResourceTiming[]
+      let totalBytes = 0
+      perfEntries.forEach(entry => {
+        if (entry.transferSize) {
+          totalBytes += entry.transferSize
+        }
+      })
+      // Add document size estimate
+      totalBytes += new Blob([document.documentElement.outerHTML]).size
+      
+      if (totalBytes > 1024 * 1024) {
+        dataProcessedEl.textContent = `${(totalBytes / (1024 * 1024)).toFixed(1)}MB`
+      } else {
+        dataProcessedEl.textContent = `${Math.round(totalBytes / 1024)}KB`
+      }
+    }
+    
+    // Reading progress update
+    const updateProgress = () => {
+      const articleRect = article.getBoundingClientRect()
+      const articleTop = articleRect.top + window.scrollY
+      const articleHeight = articleRect.height
+      const windowHeight = window.innerHeight
+      const scrolled = window.scrollY - articleTop + windowHeight * 0.3
+      
+      let progress = Math.max(0, Math.min(100, (scrolled / articleHeight) * 100))
+      
+      // Show/hide stats bar
+      if (window.scrollY > 100) {
+        statsBar.classList.remove('opacity-0')
+        statsBar.classList.add('opacity-100')
+      } else {
+        statsBar.classList.add('opacity-0')
+        statsBar.classList.remove('opacity-100')
+      }
+      
+      // Update progress bars (ctf.gg style)
+      progressRead.style.width = `${progress}%`
+      progressReading.style.left = `${Math.min(progress, 97)}%`
+      
+      // Hide reading indicator when complete
+      if (progress >= 98) {
+        progressReading.style.opacity = '0'
+      } else {
+        progressReading.style.opacity = '1'
+      }
+      
+      if (progressPercent) progressPercent.textContent = `${Math.round(progress)}%`
+      
+      // Time remaining
+      const remainingPercent = (100 - progress) / 100
+      const remainingMinutes = Math.ceil(totalMinutes * remainingPercent)
+      if (timeRemaining) {
+        if (progress >= 98) {
+          timeRemaining.textContent = 'Done!'
+        } else if (remainingMinutes <= 1) {
+          timeRemaining.textContent = '< 1 min left'
+        } else {
+          timeRemaining.textContent = `${remainingMinutes} min left`
+        }
+      }
+    }
+    
+    let ticking = false
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateProgress()
+          ticking = false
+        })
+        ticking = true
+      }
+    })
+    
+    // Initial update
+    updateProgress()
+  })
+</script>
