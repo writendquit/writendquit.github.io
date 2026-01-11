@@ -157,39 +157,35 @@
 <!-- Neo's Screen - Exact Movie Recreation -->
 <div id="matrix-container" class="fixed inset-0 z-[9999] pointer-events-none opacity-0">
   
-  <!-- Phase 1: 1999 Browser Search - FULLSCREEN -->
-  <div id="browser-phase" class="absolute inset-0 bg-[#2a3a2a]">
-    <div class="browser-window-full">
-      <!-- Browser Toolbar -->
-      <div class="browser-toolbar">
-        <div class="toolbar-icons">
-          <div class="toolbar-btn">☰</div>
-          <div class="toolbar-btn">⊞</div>
-          <div class="toolbar-btn">▦</div>
-          <div class="toolbar-btn">◫</div>
-          <div class="toolbar-btn">▤</div>
-          <div class="toolbar-btn">◨</div>
-          <div class="toolbar-btn">▥</div>
+  <!-- Phase 1: 1999 Browser Search - FULLSCREEN like the movie -->
+  <div id="browser-phase" class="absolute inset-0 bg-[#4a5568]">
+    <div class="browser-1999">
+      <!-- 1999 Toolbar - Big square icons -->
+      <div class="toolbar-1999">
+        <div class="toolbar-icons-1999">
+          <div class="icon-btn-1999">☰</div>
+          <div class="icon-btn-1999">⊞</div>
+          <div class="icon-btn-1999">▤</div>
+          <div class="icon-btn-1999">◧</div>
+          <div class="icon-btn-1999">▦</div>
+          <div class="icon-btn-1999">◨</div>
+          <div class="icon-btn-1999">▥</div>
         </div>
-        <div class="toolbar-right">
-          <div class="download-btn">Download</div>
-        </div>
+        <div class="download-btn-1999">Download</div>
       </div>
       
-      <!-- Search Progress Bar -->
-      <div class="search-bar-container">
-        <div class="search-bar">
-          <span class="search-text">Searching...</span>
-        </div>
+      <!-- Big Green Search Bar - Full Width -->
+      <div class="searchbar-1999">
+        <span class="search-label">Searching...</span>
       </div>
       
-      <!-- Content Area - Newspaper + Morpheus Photo -->
-      <div class="browser-content-full">
-        <div class="newspaper-area" id="article-area">
-          <!-- Articles will cycle here -->
+      <!-- Content: Newspaper + Dark Morpheus Silhouette -->
+      <div class="content-1999">
+        <div class="newspaper-1999" id="article-area">
+          <!-- Articles cycle here -->
         </div>
-        <div class="morpheus-photo-area">
-          <img src="/morpheus.jpg" alt="" class="morpheus-photo" />
+        <div class="morpheus-area-1999">
+          <div class="morpheus-silhouette-1999"></div>
         </div>
       </div>
     </div>
@@ -603,14 +599,14 @@
     }
   }
   
-  /* ===== NEO'S SCREEN - CINEMATIC MOVIE STYLE ===== */
+  /* ===== NEO'S SCREEN - 1999 MOVIE EXACT STYLE ===== */
   #matrix-container.active {
     opacity: 1;
     pointer-events: auto;
   }
   
-  /* 1999 Browser - FULLSCREEN */
-  .browser-window-full {
+  /* 1999 Browser - Fullscreen */
+  .browser-1999 {
     width: 100%;
     height: 100%;
     background: #c0c0c0;
@@ -618,130 +614,129 @@
     flex-direction: column;
   }
   
-  .browser-toolbar {
-    background: linear-gradient(180deg, #d8d8d8 0%, #b0b0b0 100%);
-    padding: 3px 6px;
+  /* Big 1999 Toolbar with large square icons */
+  .toolbar-1999 {
+    background: linear-gradient(180deg, #d0d0d0 0%, #a8a8a8 100%);
+    padding: 4px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #808080;
-    height: 36px;
+    border-bottom: 2px solid #808080;
+    height: 44px;
   }
   
-  .toolbar-icons {
+  .toolbar-icons-1999 {
     display: flex;
-    gap: 1px;
+    gap: 2px;
   }
   
-  .toolbar-btn {
-    width: 32px;
-    height: 28px;
-    background: linear-gradient(180deg, #e8e8e8 0%, #c8c8c8 100%);
-    border: 1px solid #a0a0a0;
-    border-top-color: #fff;
-    border-left-color: #fff;
+  .icon-btn-1999 {
+    width: 36px;
+    height: 34px;
+    background: #c8c8c8;
+    border: 2px outset #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    color: #444;
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
   }
   
-  .toolbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .download-btn {
-    background: linear-gradient(180deg, #e8e8e8 0%, #c8c8c8 100%);
-    border: 1px solid #a0a0a0;
-    border-top-color: #fff;
-    border-left-color: #fff;
-    padding: 4px 16px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 12px;
+  .download-btn-1999 {
+    background: #c8c8c8;
+    border: 2px outset #ffffff;
+    padding: 6px 20px;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
     color: #000;
   }
   
-  .search-bar-container {
-    padding: 6px 10px;
-    background: #c0c0c0;
+  /* Big Green Search Bar - FULL WIDTH like movie */
+  .searchbar-1999 {
+    background: #004d00;
+    padding: 10px 20px;
+    border: 3px inset #003300;
+    margin: 0;
   }
   
-  .search-bar {
-    background: #006600;
-    padding: 8px 16px;
-    border: 2px inset #004400;
-    display: inline-block;
-  }
-  
-  .search-text {
+  .search-label {
     color: #00ff00;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px #00ff00;
   }
   
-  /* Main content area - Newspaper style */
-  .browser-content-full {
+  /* Main Content Area */
+  .content-1999 {
     flex: 1;
     display: flex;
-    background: #e8e4d4;
-    margin: 0;
+    background: #d4d0c0;
     overflow: hidden;
   }
   
-  .newspaper-area {
+  /* Newspaper - Scanned/aged look */
+  .newspaper-1999 {
     flex: 1;
-    padding: 20px 25px;
+    padding: 15px 20px;
     overflow: hidden;
-    font-family: 'Times New Roman', 'Georgia', serif;
+    font-family: 'Times New Roman', Georgia, serif;
     color: #1a1a1a;
-    background: #f0ece0;
-    border-right: 1px solid #ccc;
+    background: #e8e4d8;
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1px,
+        rgba(0,0,0,0.03) 1px,
+        rgba(0,0,0,0.03) 2px
+      );
   }
   
-  /* Newspaper headline styles */
+  /* Newspaper Headlines */
   .article-lang {
-    font-size: 48px;
+    font-size: 52px;
     font-weight: bold;
     text-align: center;
-    margin: 5px 0 8px 0;
+    margin: 0 0 5px 0;
     font-family: 'Times New Roman', serif;
-    letter-spacing: 2px;
-    border-bottom: 2px solid #000;
-    padding-bottom: 8px;
+    letter-spacing: 3px;
+    border-bottom: 3px solid #000;
+    padding-bottom: 5px;
   }
   
   .article-subtitle {
-    font-size: 12px;
+    font-size: 11px;
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-style: italic;
-    color: #333;
+    color: #444;
   }
   
   .article-headline {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
     font-family: 'Times New Roman', serif;
-    margin: 15px 0 12px 0;
-    line-height: 1.1;
+    margin: 12px 0 10px 0;
+    line-height: 1.0;
+    letter-spacing: -1px;
   }
   
   .article-text {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 13px;
+    line-height: 1.45;
     text-align: justify;
     column-count: 3;
-    column-gap: 25px;
-    column-rule: 1px solid #ccc;
+    column-gap: 20px;
+    column-rule: 1px solid #aaa;
   }
   
   .article-text p {
-    margin-bottom: 10px;
-    text-indent: 1.5em;
+    margin-bottom: 8px;
+    text-indent: 1.2em;
   }
   
   .article-text p:first-child {
@@ -749,31 +744,48 @@
   }
   
   .article-text p:first-child::first-letter {
-    font-size: 3em;
+    font-size: 2.8em;
     float: left;
-    line-height: 0.8;
-    margin-right: 8px;
+    line-height: 0.85;
+    margin-right: 6px;
     font-weight: bold;
   }
   
-  /* Morpheus photo area */
-  .morpheus-photo-area {
-    width: 280px;
-    min-width: 280px;
+  /* Morpheus Silhouette - Dark grainy like surveillance photo */
+  .morpheus-area-1999 {
+    width: 260px;
+    min-width: 260px;
     background: #0a0a0a;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 20px;
+    padding: 20px 15px;
+    border-left: 2px solid #666;
   }
   
-  .morpheus-photo {
-    width: 100%;
-    height: auto;
-    max-height: 90%;
-    object-fit: contain;
-    filter: grayscale(100%) contrast(1.2) brightness(0.9);
-    opacity: 0.85;
+  .morpheus-silhouette-1999 {
+    width: 220px;
+    height: 320px;
+    background: 
+      radial-gradient(ellipse 80% 50% at 50% 25%, #1a1a1a 0%, #000 60%),
+      radial-gradient(ellipse 60% 30% at 50% 75%, #111 0%, #000 50%);
+    border-radius: 45% 45% 42% 42% / 35% 35% 25% 25%;
+    position: relative;
+    filter: blur(1px) contrast(1.5);
+    opacity: 0.9;
+  }
+  
+  /* Grainy noise effect */
+  .morpheus-silhouette-1999::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: overlay;
   }
   
   /* Phase 2: Terminal Messages */
@@ -799,24 +811,34 @@
   }
   
   @media (max-width: 900px) {
-    .morpheus-photo-area {
-      width: 200px;
-      min-width: 200px;
+    .morpheus-area-1999 {
+      width: 180px;
+      min-width: 180px;
+    }
+    .morpheus-silhouette-1999 {
+      width: 150px;
+      height: 220px;
     }
     .article-text {
       column-count: 2;
     }
     .article-lang {
-      font-size: 36px;
+      font-size: 40px;
+    }
+    .article-headline {
+      font-size: 28px;
     }
   }
   
   @media (max-width: 600px) {
-    .morpheus-photo-area {
+    .morpheus-area-1999 {
       display: none;
     }
     .article-text {
       column-count: 1;
+    }
+    .article-lang {
+      font-size: 32px;
     }
     #terminal-phase {
       padding: 8% 5%;
