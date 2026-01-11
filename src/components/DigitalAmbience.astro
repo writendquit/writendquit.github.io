@@ -154,18 +154,19 @@
   </svg>
 </button>
 
-<!-- Matrix Rain Effect (Neo's Screen) -->
-<div id="matrix-container" class="fixed inset-0 z-[9999] pointer-events-none opacity-0 transition-opacity duration-1000">
+<!-- Matrix Rain Effect (Neo's Screen - Exact Movie Recreation) -->
+<div id="matrix-container" class="fixed inset-0 z-[9999] pointer-events-none opacity-0 transition-opacity duration-500">
   <canvas id="matrix-canvas"></canvas>
-  <div id="matrix-text" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center opacity-0">
-    <div class="matrix-title text-green-500 text-2xl md:text-4xl font-mono mb-4">WAKE UP...</div>
-    <div class="matrix-subtitle text-green-400 text-sm md:text-lg font-mono opacity-0" style="animation-delay: 2s;">The Matrix has you...</div>
-    <div class="matrix-follow text-green-300 text-xs md:text-sm font-mono mt-4 opacity-0" style="animation-delay: 4s;">Follow the white rabbit.</div>
-    <div class="matrix-knock text-green-500 text-lg md:text-xl font-mono mt-6 opacity-0" style="animation-delay: 6s;">Knock, knock, Neo.</div>
+  <!-- Terminal style text overlay - appears after rain -->
+  <div id="matrix-terminal" class="absolute inset-0 flex items-center justify-center bg-black opacity-0">
+    <div class="terminal-screen w-full max-w-2xl px-8">
+      <div id="terminal-line-1" class="terminal-line text-green-500 font-mono text-lg md:text-2xl mb-6"></div>
+      <div id="terminal-line-2" class="terminal-line text-green-500 font-mono text-lg md:text-2xl mb-6"></div>
+      <div id="terminal-line-3" class="terminal-line text-green-500 font-mono text-lg md:text-2xl mb-6"></div>
+      <div id="terminal-line-4" class="terminal-line text-green-500 font-mono text-lg md:text-2xl"></div>
+      <span id="terminal-cursor" class="terminal-cursor">_</span>
+    </div>
   </div>
-  <button id="matrix-exit" class="absolute top-4 right-4 text-green-500 font-mono text-sm hover:text-green-300 transition-colors opacity-0 pointer-events-auto">
-    [ESC] or CLICK to exit
-  </button>
 </div>
 
 <style>
@@ -570,7 +571,7 @@
     }
   }
   
-  /* ===== MATRIX RAIN EFFECT ===== */
+  /* ===== MATRIX RAIN EFFECT (Movie Accurate) ===== */
   #matrix-canvas {
     position: fixed;
     top: 0;
@@ -585,37 +586,71 @@
     pointer-events: auto;
   }
   
-  #matrix-text {
-    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+  /* Terminal overlay */
+  #matrix-terminal {
+    transition: opacity 0.5s ease;
+    z-index: 10;
   }
   
-  #matrix-container.active #matrix-text {
-    animation: matrix-text-appear 1s ease-out forwards;
+  #matrix-terminal.visible {
+    opacity: 1;
   }
   
-  #matrix-container.active .matrix-subtitle,
-  #matrix-container.active .matrix-follow,
-  #matrix-container.active .matrix-knock {
-    animation: matrix-line-appear 1s ease-out forwards;
+  .terminal-screen {
+    position: relative;
   }
   
-  #matrix-container.active #matrix-exit {
-    animation: matrix-exit-appear 1s ease-out 7s forwards;
+  .terminal-line {
+    font-family: 'Courier New', 'Lucida Console', monospace;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+    min-height: 1.5em;
+    white-space: pre-wrap;
   }
   
-  @keyframes matrix-text-appear {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-    100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  /* Blinking cursor like old CRT terminal */
+  .terminal-cursor {
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0, 0 0 10px #0f0;
+    animation: cursor-blink 0.7s step-end infinite;
   }
   
-  @keyframes matrix-line-appear {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  @keyframes cursor-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
   }
   
-  @keyframes matrix-exit-appear {
-    0% { opacity: 0; }
-    100% { opacity: 0.7; }
+  /* CRT screen effect */
+  #matrix-terminal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 100;
+  }
+  
+  /* Slight screen flicker */
+  #matrix-terminal.visible {
+    animation: screen-flicker 0.15s infinite;
+  }
+  
+  @keyframes screen-flicker {
+    0% { opacity: 0.97; }
+    50% { opacity: 1; }
+    100% { opacity: 0.98; }
   }
   
   /* Butterfly color transition based on position */
@@ -674,7 +709,12 @@
     // Matrix elements
     const matrixContainer = document.getElementById('matrix-container')
     const matrixCanvas = document.getElementById('matrix-canvas') as HTMLCanvasElement
-    const matrixExit = document.getElementById('matrix-exit')
+    const matrixTerminal = document.getElementById('matrix-terminal')
+    const terminalLine1 = document.getElementById('terminal-line-1')
+    const terminalLine2 = document.getElementById('terminal-line-2')
+    const terminalLine3 = document.getElementById('terminal-line-3')
+    const terminalLine4 = document.getElementById('terminal-line-4')
+    const terminalCursor = document.getElementById('terminal-cursor')
     
     // Cloud elements
     const utcTime = document.getElementById('utc-time')
@@ -720,10 +760,21 @@
       butterflyEl.classList.add('hidden')
     }
     
-    // ===== MATRIX RAIN EFFECT =====
-    const matrixChars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    // ===== MATRIX RAIN EFFECT (Movie Accurate) =====
+    // Japanese katakana + half-width kana + numbers (like the actual movie)
+    const matrixChars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ012345789Z'
     let columns: number[] = []
     let ctx: CanvasRenderingContext2D | null = null
+    let matrixPhase: 'rain' | 'terminal' | 'typing' = 'rain'
+    let typewriterTimeout: number | null = null
+    
+    // Neo's screen messages - EXACT from the movie
+    const neoMessages = [
+      'Wake up, Neo...',
+      'The Matrix has you...',
+      'Follow the white rabbit.',
+      'Knock, knock, Neo.'
+    ]
     
     const initMatrix = () => {
       if (!matrixCanvas) return
@@ -733,66 +784,159 @@
       matrixCanvas.width = window.innerWidth
       matrixCanvas.height = window.innerHeight
       
-      const fontSize = 14
+      const fontSize = 16
       const columnCount = Math.floor(matrixCanvas.width / fontSize)
-      columns = Array(columnCount).fill(1)
+      columns = Array(columnCount).fill(0).map(() => Math.random() * -100)
     }
     
     const drawMatrix = () => {
-      if (!ctx || !matrixCanvas) return
+      if (!ctx || !matrixCanvas || matrixPhase !== 'rain') return
       
-      // Fade effect
+      // Fade effect - creates the trail
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'
       ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height)
       
-      ctx.fillStyle = '#0f0'
-      ctx.font = '14px monospace'
+      const fontSize = 16
+      ctx.font = `${fontSize}px monospace`
       
       columns.forEach((y, i) => {
         const char = matrixChars[Math.floor(Math.random() * matrixChars.length)]
-        const x = i * 14
+        const x = i * fontSize
         
-        // Brighter for leading character
-        if (Math.random() > 0.98) {
+        // Leading character is brighter (white/bright green)
+        if (Math.random() > 0.95) {
           ctx!.fillStyle = '#fff'
         } else {
-          ctx!.fillStyle = `rgb(0, ${Math.floor(Math.random() * 155) + 100}, 0)`
+          // Varying shades of green for the trail
+          const brightness = Math.floor(Math.random() * 155) + 100
+          ctx!.fillStyle = `rgb(0, ${brightness}, 0)`
         }
         
-        ctx!.fillText(char, x, y * 14)
+        ctx!.fillText(char, x, y)
         
-        // Reset or increment
-        if (y * 14 > matrixCanvas.height && Math.random() > 0.975) {
+        // Reset column when it goes off screen (with randomness)
+        if (y > matrixCanvas.height && Math.random() > 0.975) {
           columns[i] = 0
+        } else {
+          columns[i] = y + fontSize
         }
-        columns[i]++
       })
       
-      if (matrixActive) {
+      if (matrixActive && matrixPhase === 'rain') {
         matrixAnimationId = requestAnimationFrame(drawMatrix)
       }
+    }
+    
+    // Typewriter effect - character by character like in the movie
+    const typeMessage = (element: HTMLElement, message: string, callback?: () => void) => {
+      let index = 0
+      element.textContent = ''
+      
+      const type = () => {
+        if (index < message.length && matrixActive) {
+          element.textContent += message[index]
+          index++
+          typewriterTimeout = window.setTimeout(type, 80 + Math.random() * 40) // Slight randomness like real typing
+        } else if (callback && matrixActive) {
+          typewriterTimeout = window.setTimeout(callback, 1500) // Pause before next line
+        }
+      }
+      type()
+    }
+    
+    // Start the terminal sequence (after rain)
+    const startTerminalSequence = () => {
+      matrixPhase = 'terminal'
+      
+      // Stop the rain animation
+      if (matrixAnimationId) {
+        cancelAnimationFrame(matrixAnimationId)
+        matrixAnimationId = null
+      }
+      
+      // Clear canvas and show terminal
+      if (ctx && matrixCanvas) {
+        ctx.fillStyle = '#000'
+        ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height)
+      }
+      
+      // Show terminal with CRT effect
+      matrixTerminal?.classList.add('visible')
+      matrixPhase = 'typing'
+      
+      // Clear previous text
+      if (terminalLine1) terminalLine1.textContent = ''
+      if (terminalLine2) terminalLine2.textContent = ''
+      if (terminalLine3) terminalLine3.textContent = ''
+      if (terminalLine4) terminalLine4.textContent = ''
+      
+      // Start typing sequence
+      setTimeout(() => {
+        if (!matrixActive) return
+        typeMessage(terminalLine1!, neoMessages[0], () => {
+          if (!matrixActive) return
+          typeMessage(terminalLine2!, neoMessages[1], () => {
+            if (!matrixActive) return
+            typeMessage(terminalLine3!, neoMessages[2], () => {
+              if (!matrixActive) return
+              typeMessage(terminalLine4!, neoMessages[3])
+            })
+          })
+        })
+      }, 500)
     }
     
     const startMatrix = () => {
       if (matrixActive) return
       matrixActive = true
+      matrixPhase = 'rain'
       initMatrix()
       matrixContainer?.classList.add('active')
+      matrixTerminal?.classList.remove('visible')
+      
+      // Clear terminal lines
+      if (terminalLine1) terminalLine1.textContent = ''
+      if (terminalLine2) terminalLine2.textContent = ''
+      if (terminalLine3) terminalLine3.textContent = ''
+      if (terminalLine4) terminalLine4.textContent = ''
+      
       drawMatrix()
+      
+      // After 3 seconds of rain, transition to terminal
+      setTimeout(() => {
+        if (matrixActive) {
+          startTerminalSequence()
+        }
+      }, 3000)
     }
     
     const stopMatrix = () => {
       matrixActive = false
+      matrixPhase = 'rain'
+      
       if (matrixAnimationId) {
         cancelAnimationFrame(matrixAnimationId)
         matrixAnimationId = null
       }
+      
+      if (typewriterTimeout) {
+        clearTimeout(typewriterTimeout)
+        typewriterTimeout = null
+      }
+      
       matrixContainer?.classList.remove('active')
+      matrixTerminal?.classList.remove('visible')
+      
+      // Clear terminal
+      if (terminalLine1) terminalLine1.textContent = ''
+      if (terminalLine2) terminalLine2.textContent = ''
+      if (terminalLine3) terminalLine3.textContent = ''
+      if (terminalLine4) terminalLine4.textContent = ''
+      
       resetIdleTimer()
     }
     
     // Exit matrix on click or ESC
-    matrixExit?.addEventListener('click', stopMatrix)
     matrixContainer?.addEventListener('click', stopMatrix)
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && matrixActive) {
