@@ -190,25 +190,32 @@
           </div>
         </div>
         
-        <!-- Main Row: Newspaper + Morpheus -->
+        <!-- Main Row: Newspaper + Dino Game -->
         <div class="newspaper-row">
           <!-- Newspaper Area -->
           <div class="newspaper-1999" id="article-area">
             <!-- Articles cycle here -->
           </div>
           
-          <!-- Morpheus Photo - Black & White Surveillance -->
-          <div class="morpheus-area-1999">
-            <div class="morpheus-label">⚠ SUSPECT ⚠</div>
-            <div class="morpheus-photo-frame">
-              <div class="morpheus-image-bw"></div>
-              <div class="photo-scanlines"></div>
+          <!-- Chrome Dino Game -->
+          <div class="dino-game-area">
+            <div class="dino-game-container" id="dino-game">
+              <div class="dino-ground"></div>
+              <div class="dino" id="dino">
+                <div class="dino-body"></div>
+                <div class="dino-head"></div>
+                <div class="dino-eye"></div>
+                <div class="dino-leg dino-leg-1"></div>
+                <div class="dino-leg dino-leg-2"></div>
+                <div class="dino-tail"></div>
+              </div>
+              <div class="cactus cactus-1" id="cactus1"></div>
+              <div class="cactus cactus-2" id="cactus2"></div>
+              <div class="cloud cloud-1"></div>
+              <div class="cloud cloud-2"></div>
+              <div class="dino-score">SCORE: <span id="dino-score">0</span></div>
             </div>
-            <div class="morpheus-caption">
-              <div>▸ ALIAS: MORPHEUS</div>
-              <div>▸ STATUS: <span style="color:#ff0000">WANTED</span></div>
-              <div>▸ THREAT: <span style="color:#ff0000">EXTREME</span></div>
-            </div>
+            <div class="dino-label">NO INTERNET</div>
           </div>
         </div>
       </div>
@@ -841,94 +848,155 @@
     font-weight: bold;
   }
   
-  /* Morpheus Photo Area - Wanted Poster Style */
-  .morpheus-area-1999 {
-    width: 280px;
-    min-width: 280px;
-    background: #0a0a0a;
+  /* Chrome Dino Game Area */
+  .dino-game-area {
+    width: 300px;
+    min-width: 300px;
+    background: #f7f7f7;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 15px;
-    border-left: 3px solid #333;
+    border-left: 3px solid #ddd;
   }
   
-  .morpheus-label {
-    color: #ff0000;
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 8px;
-    text-align: center;
-    margin-bottom: 10px;
-    text-shadow: 0 0 10px #ff0000;
-    animation: label-flash 2s ease-in-out infinite;
-  }
-  
-  @keyframes label-flash {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
-  }
-  
-  .morpheus-photo-frame {
-    width: 240px;
-    height: 300px;
-    background: #111;
-    border: 4px solid #333;
+  .dino-game-container {
+    width: 270px;
+    height: 150px;
+    background: #fff;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    border: 2px solid #ccc;
   }
   
-  .morpheus-image-bw {
-    width: 100%;
-    height: 100%;
-    background: 
-      /* Face shape */
-      radial-gradient(ellipse 70% 45% at 50% 35%, #2a2a2a 0%, #1a1a1a 40%, #0a0a0a 70%),
-      /* Head */
-      radial-gradient(ellipse 60% 50% at 50% 30%, #252525 0%, #151515 50%, #000 80%),
-      /* Shoulders */
-      radial-gradient(ellipse 90% 40% at 50% 90%, #1a1a1a 0%, #0a0a0a 60%),
-      /* Sunglasses hint */
-      linear-gradient(180deg, transparent 28%, #111 29%, #111 32%, transparent 33%);
-    filter: contrast(1.4) brightness(0.8);
-  }
-  
-  .photo-scanlines {
+  .dino-ground {
     position: absolute;
-    top: 0;
+    bottom: 10px;
     left: 0;
     right: 0;
+    height: 2px;
+    background: #535353;
+  }
+  
+  /* T-Rex Dinosaur */
+  .dino {
+    position: absolute;
+    bottom: 12px;
+    left: 30px;
+    width: 44px;
+    height: 47px;
+    animation: dino-run 0.2s steps(2) infinite;
+  }
+  
+  .dino-body {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    width: 30px;
+    height: 25px;
+    background: #535353;
+    border-radius: 3px;
+  }
+  
+  .dino-head {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 20px;
+    background: #535353;
+    border-radius: 2px;
+  }
+  
+  .dino-eye {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+  }
+  
+  .dino-leg {
+    position: absolute;
     bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.3) 2px,
-      rgba(0,0,0,0.3) 4px
-    );
-    pointer-events: none;
-    animation: scanline-move 0.1s linear infinite;
+    width: 6px;
+    height: 15px;
+    background: #535353;
   }
   
-  @keyframes scanline-move {
+  .dino-leg-1 { left: 10px; }
+  .dino-leg-2 { left: 22px; }
+  
+  .dino-tail {
+    position: absolute;
+    bottom: 15px;
+    left: -5px;
+    width: 12px;
+    height: 8px;
+    background: #535353;
+    border-radius: 2px 0 0 2px;
+  }
+  
+  @keyframes dino-run {
     0% { transform: translateY(0); }
-    100% { transform: translateY(4px); }
+    50% { transform: translateY(-2px); }
   }
   
-  .morpheus-caption {
-    color: #00ff00;
+  /* Cactus obstacles */
+  .cactus {
+    position: absolute;
+    bottom: 12px;
+    width: 15px;
+    height: 30px;
+    background: #535353;
+    border-radius: 2px;
+    animation: cactus-move 2s linear infinite;
+  }
+  
+  .cactus-1 { right: -20px; animation-delay: 0s; }
+  .cactus-2 { right: -20px; animation-delay: 1s; height: 25px; }
+  
+  @keyframes cactus-move {
+    0% { right: -20px; }
+    100% { right: 290px; }
+  }
+  
+  /* Clouds */
+  .cloud {
+    position: absolute;
+    width: 30px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 10px;
+    animation: cloud-move 8s linear infinite;
+  }
+  
+  .cloud-1 { top: 20px; right: -30px; }
+  .cloud-2 { top: 40px; right: -30px; animation-delay: 4s; width: 25px; }
+  
+  @keyframes cloud-move {
+    0% { right: -30px; }
+    100% { right: 300px; }
+  }
+  
+  .dino-score {
+    position: absolute;
+    top: 5px;
+    right: 10px;
     font-family: 'Courier New', monospace;
-    font-size: 11px;
-    text-align: center;
-    margin-top: 12px;
-    line-height: 1.6;
-    letter-spacing: 1px;
+    font-size: 12px;
+    color: #535353;
+    font-weight: bold;
   }
   
-  .morpheus-caption div {
-    margin: 2px 0;
+  .dino-label {
+    margin-top: 10px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: #535353;
+    text-align: center;
   }
   
   /* Phase 2: Terminal Messages */
@@ -954,13 +1022,13 @@
   }
   
   @media (max-width: 900px) {
-    .morpheus-area-1999 {
-      width: 180px;
-      min-width: 180px;
+    .dino-game-area {
+      width: 220px;
+      min-width: 220px;
     }
-    .morpheus-silhouette-1999 {
-      width: 150px;
-      height: 220px;
+    .dino-game-container {
+      width: 190px;
+      height: 120px;
     }
     .article-text {
       column-count: 2;
@@ -974,7 +1042,7 @@
   }
   
   @media (max-width: 600px) {
-    .morpheus-area-1999 {
+    .dino-game-area {
       display: none;
     }
     .article-text {
@@ -1189,6 +1257,17 @@ One local policeman was also present at Heathrow Airport for comments. "I have b
       statusIndex++
     }
     
+    // Dino game score
+    const dinoScore = document.getElementById('dino-score')
+    let score = 0
+    let scoreInterval: number | null = null
+    
+    const updateDinoScore = () => {
+      if (!matrixActive || !dinoScore) return
+      score += Math.floor(Math.random() * 10) + 5
+      dinoScore.textContent = score.toString().padStart(5, '0')
+    }
+    
     // Show article in browser
     const showArticle = () => {
       if (!matrixActive || !articleArea) return
@@ -1269,13 +1348,19 @@ One local policeman was also present at Heathrow Airport for comments. "I have b
       articleIndex = 0
       messageIndex = 0
       charIndex = 0
+      statusIndex = 0
+      score = 0
       
       // Reset UI
       browserPhase?.classList.remove('hidden')
       terminalPhase?.classList.add('hidden')
       if (neoMessage) neoMessage.textContent = ''
+      if (dinoScore) dinoScore.textContent = '00000'
       
       matrixContainer?.classList.add('active')
+      
+      // Start dino score updates
+      scoreInterval = window.setInterval(updateDinoScore, 200)
       
       // Start showing articles
       screenTimeout = window.setTimeout(showArticle, 500)
@@ -1289,12 +1374,18 @@ One local policeman was also present at Heathrow Airport for comments. "I have b
         screenTimeout = null
       }
       
+      if (scoreInterval) {
+        clearInterval(scoreInterval)
+        scoreInterval = null
+      }
+      
       matrixContainer?.classList.remove('active')
       browserPhase?.classList.remove('hidden')
       terminalPhase?.classList.add('hidden')
       
       if (neoMessage) neoMessage.textContent = ''
       if (articleArea) articleArea.innerHTML = ''
+      score = 0
       
       resetIdleTimer()
     }
