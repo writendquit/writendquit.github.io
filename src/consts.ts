@@ -40,7 +40,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: 'Twitter',
   },
   {
-    href: 'https://ctftime.org/team/writendquit',
+    href: 'https://ctftime.org/user/233116',
     label: 'CTFtime',
   },
   {
