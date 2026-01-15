@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Flag pole -->
+  <rect x="8" y="8" width="4" height="52" rx="2" fill="#000"/>
+  
+  <!-- Flag body - waving shape -->
+  <path d="M12 10 Q32 6 52 12 Q56 20 52 28 Q32 34 12 28 Z" fill="#3B9FD8"/>
+  
+  <!-- Cloud-like accent (from glasses reflection) -->
+  <ellipse cx="32" cy="18" rx="8" ry="4" fill="rgba(255,255,255,0.6)"/>
+  <ellipse cx="38" cy="16" rx="5" ry="3" fill="rgba(255,255,255,0.4)"/>
+  
+  <!-- :wq! text on flag -->
+  <text x="28" y="23" font-family="monospace" font-size="8" font-weight="bold" fill="#000">:wq!</text>
+  
+  <!-- Circular goggle-style accent -->
+  <circle cx="44" cy="18" r="5" fill="none" stroke="#000" stroke-width="1.5"/>
+  <circle cx="44" cy="18" r="3" fill="#5CB8E8"/>
+  
+  <!-- Flag end ribbons -->
+  <path d="M12 28 L12 32 Q22 30 32 33 L32 29" fill="#2A8BC4"/>
+  <path d="M32 29 L32 33 Q42 30 52 32 L52 28" fill="#2A8BC4"/>
+</svg>

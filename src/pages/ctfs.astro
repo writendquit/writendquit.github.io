@@ -4,6 +4,7 @@ import Layout from '@/layouts/Layout.astro'
 import { Icon } from 'astro-icon/components'
 import Link from '@/components/Link.astro'
 import CTFRatingChart from '@/components/CTFRatingChart'
+import CTFFlag from '@/components/CTFFlag.astro'
 
 const teamStats = {
   name: ':wq!',
@@ -66,9 +67,12 @@ const upcomingCTFs = [
 <Layout class="max-w-5xl">
   <PageHead slot="head" title="CTFs" />
   
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold tracking-tight">CTF History</h1>
-    <p class="text-muted-foreground">Competition results and rankings</p>
+  <div class="mb-8 flex items-center gap-4">
+    <CTFFlag size={72} />
+    <div>
+      <h1 class="text-3xl font-bold tracking-tight">CTF History</h1>
+      <p class="text-muted-foreground">Competition results and rankings</p>
+    </div>
   </div>
 
   <div class="mb-10 grid gap-6 md:grid-cols-3">
