@@ -469,53 +469,88 @@ const GITHUB_USERNAME = 'writendquit'
 
       <!-- Skills Panel -->
       <div id="panel-skills" class="tab-panel hidden">
-        <div class="bg-[#0d1117] rounded-2xl border border-[#30363d] overflow-hidden p-6">
-          <h3 class="text-white font-semibold text-lg mb-6">Technical Skills & Time Invested</h3>
-          <div class="space-y-4">
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-white text-sm">Reverse Engineering</span>
-                <span class="text-[#8b949e] text-sm">500+ hours</span>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- Languages Card -->
+          <div class="bg-[#141414] rounded-lg border border-[#252525] p-5 group/card hover:border-orange-500/30 transition-colors duration-500">
+            <p class="text-[#666] text-[10px] uppercase tracking-widest mb-4">Languages</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between group/item">
+                <div class="flex items-center gap-3">
+                  <span class="text-[#888] group-hover/item:text-orange-400 transition-colors font-mono text-xs">py</span>
+                  <span class="text-[#ccc] text-sm">Python</span>
+                </div>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">exploitation · scripting</span>
               </div>
-              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 85%"></div>
+              <div class="flex items-center justify-between group/item">
+                <div class="flex items-center gap-3">
+                  <span class="text-[#888] group-hover/item:text-orange-400 transition-colors font-mono text-xs">c</span>
+                  <span class="text-[#ccc] text-sm">C / C++</span>
+                </div>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">low-level · memory</span>
+              </div>
+              <div class="flex items-center justify-between group/item">
+                <div class="flex items-center gap-3">
+                  <span class="text-[#888] group-hover/item:text-orange-400 transition-colors font-mono text-xs">rs</span>
+                  <span class="text-[#ccc] text-sm">Rust</span>
+                </div>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">safe systems</span>
+              </div>
+              <div class="flex items-center justify-between group/item">
+                <div class="flex items-center gap-3">
+                  <span class="text-[#888] group-hover/item:text-orange-400 transition-colors font-mono text-xs">asm</span>
+                  <span class="text-[#ccc] text-sm">Assembly</span>
+                </div>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">x86 · arm</span>
+              </div>
+              <div class="flex items-center justify-between group/item">
+                <div class="flex items-center gap-3">
+                  <span class="text-[#888] group-hover/item:text-orange-400 transition-colors font-mono text-xs">js</span>
+                  <span class="text-[#ccc] text-sm">JavaScript</span>
+                </div>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">web · node</span>
               </div>
             </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-white text-sm">Binary Exploitation</span>
-                <span class="text-[#8b949e] text-sm">400+ hours</span>
+          </div>
+
+          <!-- Tools Card -->
+          <div class="bg-[#141414] rounded-lg border border-[#252525] p-5 group/card hover:border-orange-500/30 transition-colors duration-500">
+            <p class="text-[#666] text-[10px] uppercase tracking-widest mb-4">Tools</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between group/item">
+                <span class="text-[#ccc] text-sm">IDA Pro / Ghidra</span>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">disassembly</span>
               </div>
-              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 75%"></div>
+              <div class="flex items-center justify-between group/item">
+                <span class="text-[#ccc] text-sm">Burp Suite</span>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">web testing</span>
+              </div>
+              <div class="flex items-center justify-between group/item">
+                <span class="text-[#ccc] text-sm">pwntools / gdb</span>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">exploitation</span>
+              </div>
+              <div class="flex items-center justify-between group/item">
+                <span class="text-[#ccc] text-sm">Docker / Linux</span>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">environment</span>
+              </div>
+              <div class="flex items-center justify-between group/item">
+                <span class="text-[#ccc] text-sm">Vim / VS Code</span>
+                <span class="text-[#555] text-xs font-mono group-hover/item:text-orange-400/70 transition-colors">editors</span>
               </div>
             </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-white text-sm">AI Jailbreaking</span>
-                <span class="text-[#8b949e] text-sm">300+ hours</span>
-              </div>
-              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 65%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-white text-sm">Web Security</span>
-                <span class="text-[#8b949e] text-sm">350+ hours</span>
-              </div>
-              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 70%"></div>
-              </div>
-            </div>
-            <div>
-              <div class="flex justify-between mb-1">
-                <span class="text-white text-sm">CTF Competitions</span>
-                <span class="text-[#8b949e] text-sm">600+ hours</span>
-              </div>
-              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 90%"></div>
-              </div>
+          </div>
+
+          <!-- Focus Areas Card -->
+          <div class="bg-[#141414] rounded-lg border border-[#252525] p-5 lg:col-span-2 group/card hover:border-orange-500/30 transition-colors duration-500">
+            <p class="text-[#666] text-[10px] uppercase tracking-widest mb-4">Focus Areas</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">reverse engineering</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">binary exploitation</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">AI jailbreaking</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">web security</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">CTF</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">pwn</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">forensics</span>
+              <span class="px-3 py-1.5 bg-[#1a1a1a] border border-[#2a2a2a] rounded text-[#999] text-xs hover:border-orange-500/50 hover:text-orange-400 transition-all cursor-default">cryptography</span>
             </div>
           </div>
         </div>
