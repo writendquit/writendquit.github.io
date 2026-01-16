@@ -293,118 +293,289 @@ const GITHUB_USERNAME = 'writendquit'
     </div>
   </section>
 
-  <!-- ===== PRODUCT SECTION ===== -->
+  <!-- ===== TECH STACK SECTION ===== -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border">
     <div class="flex items-center gap-2 mb-6">
       <div class="w-1.5 h-1.5 bg-orange-500 rounded-full orange-dot"></div>
-      <span class="text-[11px] font-medium tracking-[0.2em] uppercase">Product</span>
+      <span class="text-[11px] font-medium tracking-[0.2em] uppercase">Tech Stack</span>
     </div>
     
     <h2 class="text-[2.5rem] sm:text-[3rem] font-bold leading-[1.1] tracking-[-0.02em] mb-4">
-      Skills meet you<br/>
-      <span class="text-muted-foreground">wherever you work.</span>
+      Technical Arsenal<br/>
+      <span class="text-muted-foreground">& What I Yield</span>
     </h2>
     
     <p class="text-muted-foreground text-[15px] leading-relaxed mb-12 max-w-xl">
-      Security research embedded directly into your workflow.<br/>
-      IDE, Web, CLI, Slack, Linear. Delegate tasks<br/>
-      as they come to mind, wherever you are.
+      From reverse engineering binaries to jailbreaking AI models.<br/>
+      Security research, CTF competitions, and chess in between.<br/>
+      Here's what I'm working with and the output.
     </p>
     
-    <!-- Product tabs -->
-    <div class="flex flex-wrap gap-4 mb-12">
-      <button class="text-sm font-medium text-foreground border-b-2 border-foreground pb-1">01 Terminal / IDE</button>
-      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">02 Web Browser</button>
-      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">03 Command Line</button>
-      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">04 Slack / Teams</button>
-      <button class="text-sm text-muted-foreground hover:text-foreground transition-colors pb-1">05 Project Manager</button>
-    </div>
-    
-    <!-- GitHub Contributions - Full Width -->
-    <div class="mb-16">
-      <GitHubContributions client:load username={GITHUB_USERNAME} />
-    </div>
-    
-    <!-- Product content grid -->
-    <div class="grid lg:grid-cols-2 gap-12 items-start">
-      <!-- Left: Description card -->
-      <div class="border border-border rounded-2xl p-8">
-        <div class="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-4">01 — Terminal / IDE</div>
-        
-        <div class="flex gap-2 mb-4">
-          <button class="px-3 py-1.5 text-[11px] font-medium tracking-wider border border-foreground bg-foreground text-background rounded">
-            MACOS / LINUX
-          </button>
-          <button class="px-3 py-1.5 text-[11px] font-medium tracking-wider border border-border text-muted-foreground rounded">
-            WINDOWS
-          </button>
+    <!-- Skills Bar - Orange Glowing Horizontal Bar -->
+    <div class="relative mb-12">
+      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-60"></div>
+      <div class="absolute inset-0 h-[2px] w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent blur-sm"></div>
+      <div class="flex items-center justify-center gap-8 py-6 overflow-x-auto">
+        <div class="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="text-sm font-medium">GitHub</span>
         </div>
-        
-        <div class="flex items-center border border-border rounded-md overflow-hidden mb-6">
-          <div class="flex-1 flex items-center gap-2 px-4 py-3 font-mono text-sm">
-            <span class="text-muted-foreground">&gt;</span>
-            <span class="text-foreground">curl -fsSL https://wq.dev/cli | sh</span>
-          </div>
-          <button class="px-3 py-3 border-l border-border hover:bg-muted transition-colors">
-            <Icon name="lucide:copy" class="w-4 h-4 text-muted-foreground" />
-          </button>
+        <div class="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          <span class="text-sm font-medium">Chess</span>
         </div>
-        
-        <Link href="/about" class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all">
-          Quickstart Guide
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
-        </Link>
-        
-        <h3 class="text-2xl font-bold mt-8 mb-4">Research where you code</h3>
-        
-        <p class="text-muted-foreground text-[15px] leading-relaxed mb-6">
-          :wq! meets you in your editor without forcing a switch. 
-          Delegate tasks in any IDE or terminal: VS Code, JetBrains, Vim, and more. 
-          All while maintaining your workflow, tools, and shortcuts.
-        </p>
-        
-        <Link href="/about" class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all">
-          Learn more
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
-        </Link>
+        <div class="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+          <span class="text-sm font-medium">Discord</span>
+        </div>
+        <div class="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span class="text-sm font-medium">Skills</span>
+        </div>
+        <div class="flex items-center gap-2 text-muted-foreground hover:text-orange-500 transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          <span class="text-sm font-medium">Blog</span>
+        </div>
       </div>
-      
-      <!-- Right: Stats Card -->
-      <div class="border border-border rounded-2xl p-8 bg-muted/5">
-        <div class="text-[11px] font-medium tracking-[0.15em] uppercase text-muted-foreground mb-6">02 — Activity Stats</div>
-        
-        <div class="grid grid-cols-2 gap-6 mb-8">
-          <div>
-            <p class="text-4xl font-bold text-foreground">89</p>
-            <p class="text-sm text-muted-foreground">Vulnerabilities Found</p>
-          </div>
-          <div>
-            <p class="text-4xl font-bold text-foreground">42</p>
-            <p class="text-sm text-muted-foreground">CTFs Completed</p>
-          </div>
-          <div>
-            <p class="text-4xl font-bold text-foreground">#42</p>
-            <p class="text-sm text-muted-foreground">CTFtime Rank</p>
-          </div>
-          <div>
-            <p class="text-4xl font-bold text-foreground">127</p>
-            <p class="text-sm text-muted-foreground">Contributions</p>
-          </div>
-        </div>
-        
-        <h3 class="text-2xl font-bold mb-4">Consistent Activity</h3>
-        
-        <p class="text-muted-foreground text-[15px] leading-relaxed mb-6">
-          Track my real-time coding activity and contribution history. 
-          Every push, every commit, displayed live from GitHub.
-        </p>
-        
-        <Link href={`https://github.com/${GITHUB_USERNAME}`} external class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all">
-          View GitHub Profile
-          <Icon name="lucide:arrow-right" class="w-4 h-4" />
-        </Link>
+      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-60"></div>
+      <div class="absolute bottom-0 h-[2px] w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent blur-sm"></div>
+    </div>
+
+    <!-- 5 Section Tabs - Sliding -->
+    <div class="mb-8">
+      <div class="flex flex-wrap gap-2 p-1 bg-muted/30 rounded-lg w-fit">
+        <button id="tab-github" class="tab-btn px-4 py-2 text-sm font-medium rounded-md bg-foreground text-background transition-all" data-tab="github">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </span>
+        </button>
+        <button id="tab-chess" class="tab-btn px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground transition-all" data-tab="chess">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 22H5v-2h14v2M17.16 8.26A8.94 8.94 0 0 0 21 2H3a8.94 8.94 0 0 0 3.84 6.26L4 12l2.5 2.5L8 20h8l1.5-5.5L20 12l-2.84-3.74z"/></svg>
+            Chess
+          </span>
+        </button>
+        <button id="tab-discord" class="tab-btn px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground transition-all" data-tab="discord">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+            Discord
+          </span>
+        </button>
+        <button id="tab-skills" class="tab-btn px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground transition-all" data-tab="skills">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Skills
+          </span>
+        </button>
+        <button id="tab-blog" class="tab-btn px-4 py-2 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground transition-all" data-tab="blog">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            Blog
+          </span>
+        </button>
       </div>
     </div>
+
+    <!-- Tab Content Panels -->
+    <div id="tab-content" class="min-h-[400px]">
+      <!-- GitHub Panel -->
+      <div id="panel-github" class="tab-panel">
+        <GitHubContributions client:load username={GITHUB_USERNAME} />
+      </div>
+
+      <!-- Chess Panel -->
+      <div id="panel-chess" class="tab-panel hidden">
+        <div class="bg-[#0d1117] rounded-2xl border border-[#30363d] overflow-hidden">
+          <div class="px-6 py-5 border-b border-[#30363d] flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M19 22H5v-2h14v2M17.16 8.26A8.94 8.94 0 0 0 21 2H3a8.94 8.94 0 0 0 3.84 6.26L4 12l2.5 2.5L8 20h8l1.5-5.5L20 12l-2.84-3.74z"/></svg>
+              <div>
+                <h3 class="text-white font-semibold text-lg">:wq! KISHORE</h3>
+                <p class="text-[#8b949e] text-sm">World Chess · Indian Chess Federation</p>
+              </div>
+            </div>
+            <a href="https://worldchess.com/profile/1015724" target="_blank" class="text-white text-sm hover:underline">View Profile</a>
+          </div>
+          <div class="grid grid-cols-4 border-b border-[#30363d]">
+            <div class="px-6 py-4 border-r border-[#30363d]">
+              <p class="text-[#8b949e] text-xs uppercase tracking-wider mb-1">Games</p>
+              <p class="text-white text-2xl font-bold">27</p>
+            </div>
+            <div class="px-6 py-4 border-r border-[#30363d]">
+              <p class="text-[#8b949e] text-xs uppercase tracking-wider mb-1">Time Spent</p>
+              <p class="text-white text-2xl font-bold">2h 22m</p>
+            </div>
+            <div class="px-6 py-4 border-r border-[#30363d]">
+              <p class="text-[#8b949e] text-xs uppercase tracking-wider mb-1">Win Rate</p>
+              <p class="text-white text-2xl font-bold">7%</p>
+            </div>
+            <div class="px-6 py-4">
+              <p class="text-[#8b949e] text-xs uppercase tracking-wider mb-1">Accuracy</p>
+              <p class="text-white text-2xl font-bold">66%</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <p class="text-[#8b949e] text-sm mb-2">Rating (Rapid)</p>
+                <p class="text-white text-4xl font-bold">1178</p>
+                <p class="text-[#8b949e] text-sm mt-1">2 games played</p>
+              </div>
+              <div>
+                <p class="text-[#8b949e] text-sm mb-2">Activity</p>
+                <div class="flex gap-4">
+                  <div><span class="text-white font-bold">2</span> <span class="text-[#8b949e]">wins</span></div>
+                  <div><span class="text-white font-bold">25</span> <span class="text-[#8b949e]">losses</span></div>
+                  <div><span class="text-white font-bold">0</span> <span class="text-[#8b949e]">draws</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-[#30363d]">
+              <p class="text-[#8b949e] text-sm mb-2">Member of</p>
+              <p class="text-white">Harvard Chess Club · Since Aug 2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Discord Panel -->
+      <div id="panel-discord" class="tab-panel hidden">
+        <div class="bg-[#0d1117] rounded-2xl border border-[#30363d] overflow-hidden p-6">
+          <div class="flex items-center gap-4 mb-6">
+            <img src="/discord-profile.png" alt="Discord Profile" class="w-48 rounded-lg grayscale hover:grayscale-0 hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] transition-all duration-300" />
+            <div>
+              <h3 class="text-white font-semibold text-xl">:wq!</h3>
+              <p class="text-[#8b949e]">writendquit</p>
+              <p class="text-[#8b949e] text-sm mt-2">Let's play a game :)</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="bg-[#161b22] rounded-lg p-4">
+              <p class="text-[#8b949e] text-xs uppercase mb-1">Status</p>
+              <p class="text-white font-medium">Online</p>
+            </div>
+            <div class="bg-[#161b22] rounded-lg p-4">
+              <p class="text-[#8b949e] text-xs uppercase mb-1">Playing</p>
+              <p class="text-white font-medium">Z.ai</p>
+            </div>
+            <div class="bg-[#161b22] rounded-lg p-4">
+              <p class="text-[#8b949e] text-xs uppercase mb-1">Badges</p>
+              <p class="text-white font-medium">4+</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills Panel -->
+      <div id="panel-skills" class="tab-panel hidden">
+        <div class="bg-[#0d1117] rounded-2xl border border-[#30363d] overflow-hidden p-6">
+          <h3 class="text-white font-semibold text-lg mb-6">Technical Skills & Time Invested</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-white text-sm">Reverse Engineering</span>
+                <span class="text-[#8b949e] text-sm">500+ hours</span>
+              </div>
+              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-white text-sm">Binary Exploitation</span>
+                <span class="text-[#8b949e] text-sm">400+ hours</span>
+              </div>
+              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-white text-sm">AI Jailbreaking</span>
+                <span class="text-[#8b949e] text-sm">300+ hours</span>
+              </div>
+              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 65%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-white text-sm">Web Security</span>
+                <span class="text-[#8b949e] text-sm">350+ hours</span>
+              </div>
+              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span class="text-white text-sm">CTF Competitions</span>
+                <span class="text-[#8b949e] text-sm">600+ hours</span>
+              </div>
+              <div class="h-2 bg-[#161b22] rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Panel -->
+      <div id="panel-blog" class="tab-panel hidden">
+        <div class="bg-[#0d1117] rounded-2xl border border-[#30363d] overflow-hidden p-6">
+          <h3 class="text-white font-semibold text-lg mb-6">Recent Writeups & Posts</h3>
+          <div class="space-y-4">
+            {blog.slice(0, 4).map((post) => (
+              <a href={`/blog/${post.id}`} class="block bg-[#161b22] rounded-lg p-4 hover:bg-[#1f2428] transition-colors">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h4 class="text-white font-medium">{post.data.title}</h4>
+                    <p class="text-[#8b949e] text-sm mt-1 line-clamp-1">{post.data.description}</p>
+                  </div>
+                  <svg class="w-5 h-5 text-[#8b949e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              </a>
+            ))}
+          </div>
+          <a href="/blog" class="inline-flex items-center gap-2 text-white text-sm mt-6 hover:underline">
+            View all posts
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+        
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            const targetTab = tab.getAttribute('data-tab');
+            
+            // Update tab styles
+            tabs.forEach(t => {
+              t.classList.remove('bg-foreground', 'text-background');
+              t.classList.add('text-muted-foreground');
+            });
+            tab.classList.remove('text-muted-foreground');
+            tab.classList.add('bg-foreground', 'text-background');
+            
+            // Show/hide panels
+            panels.forEach(panel => {
+              panel.classList.add('hidden');
+            });
+            document.getElementById(`panel-${targetTab}`)?.classList.remove('hidden');
+          });
+        });
+      });
+    </script>
   </section>
 
   <!-- ===== ENTERPRISE SECTION (DARK) ===== -->
